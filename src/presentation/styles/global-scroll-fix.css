@@ -1,0 +1,49 @@
+/* 스크롤바 깜빡임 방지 CSS */
+
+/* 전역 스크롤바 스타일 설정 */
+html {
+  overflow-x: hidden; /* 가로 스크롤바 숨김 */
+}
+
+body {
+  overflow-x: hidden; /* 가로 스크롤 방지 */
+  margin: 0;
+  padding: 0;
+}
+
+/* 웹킷 기반 브라우저용 스크롤바 커스터마이징 */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 244, 230, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #FFB5C5, #F1948A);
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #F1948A, #FFB5C5);
+}
+
+/* Firefox용 스크롤바 스타일 */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #FFB5C5 rgba(255, 244, 230, 0.3);
+}
+
+/* 애니메이션으로 인한 레이아웃 변경 방지 */
+* {
+  transform-origin: center center;
+}
+
+/* 플렉스박스와 그리드에서 overflow 문제 방지 */
+.warm-theme {
+  width: 100%;
+  max-width: 100vw;
+}

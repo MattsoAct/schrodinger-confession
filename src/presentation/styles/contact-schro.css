@@ -1,0 +1,430 @@
+/* SchRo Contact Page Styles */
+
+.schro-contact-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, 
+    rgba(255, 248, 220, 0.8) 0%, 
+    rgba(255, 255, 255, 0.9) 50%, 
+    rgba(248, 249, 250, 0.8) 100%);
+  padding: 3rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.schro-contact-container {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+/* Header Section */
+.schro-contact-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.schro-contact-header-character {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 2rem;
+  position: relative;
+}
+
+.schro-contact-header-character img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  animation: contactFloat 3s ease-in-out infinite;
+}
+
+@keyframes contactFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.schro-contact-header-title {
+  font-family: var(--font-brand);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--schro-orange);
+  margin: 0 0 1rem;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.schro-contact-header-subtitle {
+  font-family: var(--font-brand);
+  font-size: 1.1rem;
+  color: var(--text-medium);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Form Card */
+.schro-contact-form-card {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 1.5rem;
+  padding: 3rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(230, 126, 34, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.schro-contact-form-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.schro-contact-form-icon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, var(--schro-orange), var(--schro-orange-light));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  font-size: 1.5rem;
+  color: white;
+  box-shadow: 0 8px 25px rgba(230, 126, 34, 0.3);
+}
+
+.schro-contact-form-title {
+  font-family: var(--font-brand);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0 0 0.5rem;
+}
+
+.schro-contact-form-description {
+  font-size: 1rem;
+  color: var(--text-medium);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Form Styles */
+.schro-contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.schro-contact-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.schro-contact-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.schro-contact-form-label {
+  font-family: var(--font-brand);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.schro-contact-form-label svg {
+  color: var(--schro-orange);
+  font-size: 0.8rem;
+}
+
+.schro-contact-form-input,
+.schro-contact-form-textarea {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  border: 2px solid rgba(230, 126, 34, 0.2);
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  font-family: var(--font-main);
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--text-dark);
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.schro-contact-form-input:focus,
+.schro-contact-form-textarea:focus {
+  outline: none;
+  border-color: var(--schro-orange);
+  background: white;
+  box-shadow: 0 0 0 4px rgba(230, 126, 34, 0.1);
+}
+
+.schro-contact-form-textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.6;
+}
+
+.schro-contact-char-count {
+  font-size: 0.8rem;
+  color: var(--text-medium);
+  text-align: right;
+  margin-top: 0.25rem;
+}
+
+/* Submit Button */
+.schro-contact-submit {
+  background: linear-gradient(135deg, var(--schro-orange), var(--schro-orange-light));
+  border: none;
+  border-radius: 0.75rem;
+  padding: 1rem 2rem;
+  font-family: var(--font-brand);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  box-shadow: 0 8px 25px rgba(230, 126, 34, 0.3);
+}
+
+.schro-contact-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(230, 126, 34, 0.4);
+}
+
+.schro-contact-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.schro-contact-submit.loading {
+  animation: submitPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes submitPulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+/* Success State */
+.schro-contact-success {
+  text-align: center;
+  padding: 3rem;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 1.5rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(76, 175, 80, 0.2);
+}
+
+.schro-contact-success-character {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 1.5rem;
+}
+
+.schro-contact-success-character img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  animation: successBounce 2s ease-in-out infinite;
+}
+
+@keyframes successBounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.schro-contact-success-icon {
+  font-size: 3rem;
+  color: #4CAF50;
+  margin-bottom: 1.5rem;
+  animation: successGlow 2s ease-in-out infinite;
+}
+
+@keyframes successGlow {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+.schro-contact-success-title {
+  font-family: var(--font-brand);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0 0 1rem;
+}
+
+.schro-contact-success-message {
+  font-size: 1.1rem;
+  color: var(--text-medium);
+  line-height: 1.6;
+  margin: 0 0 2rem;
+}
+
+.schro-contact-success-button {
+  background: linear-gradient(135deg, var(--schro-orange), var(--schro-orange-light));
+  border: none;
+  border-radius: 0.75rem;
+  padding: 1rem 2rem;
+  font-family: var(--font-brand);
+  font-size: 1rem;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(230, 126, 34, 0.3);
+}
+
+.schro-contact-success-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(230, 126, 34, 0.4);
+}
+
+/* Kakao Button */
+.schro-contact-kakao-button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #FEE500, #FFEB3B);
+  color: #3C1E1E;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-family: var(--font-brand);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(254, 229, 0, 0.3);
+}
+
+.schro-contact-kakao-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(254, 229, 0, 0.4);
+}
+
+/* Info Cards */
+.schro-contact-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.schro-contact-info-card {
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 1rem;
+  padding: 2rem;
+  text-align: center;
+  border: 1px solid rgba(230, 126, 34, 0.1);
+  transition: all 0.3s ease;
+}
+
+.schro-contact-info-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+}
+
+.schro-contact-info-card h3 {
+  font-family: var(--font-brand);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0 0 1rem;
+}
+
+.schro-contact-info-card p {
+  font-size: 0.95rem;
+  color: var(--text-medium);
+  line-height: 1.6;
+  margin: 0 0 1rem;
+}
+
+.schro-contact-email-link {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, var(--schro-orange), var(--schro-orange-light));
+  color: white;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3);
+}
+
+.schro-contact-email-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(230, 126, 34, 0.4);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .schro-contact-page {
+    padding: 2rem 1rem;
+  }
+  
+  .schro-contact-container {
+    gap: 2rem;
+  }
+  
+  .schro-contact-header-title {
+    font-size: 2rem;
+  }
+  
+  .schro-contact-form-card {
+    padding: 2rem;
+  }
+  
+  .schro-contact-form-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .schro-contact-info {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .schro-contact-info-card {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .schro-contact-header-character {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .schro-contact-header-title {
+    font-size: 1.8rem;
+  }
+  
+  .schro-contact-header-subtitle {
+    font-size: 1rem;
+  }
+  
+  .schro-contact-form-card {
+    padding: 1.5rem;
+  }
+  
+  .schro-contact-form-title {
+    font-size: 1.5rem;
+  }
+  
+  .schro-contact-success {
+    padding: 2rem;
+  }
+  
+  .schro-contact-success-title {
+    font-size: 1.8rem;
+  }
+}

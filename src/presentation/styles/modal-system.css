@@ -1,0 +1,260 @@
+/* SchRo 모달 시스템 - 통합 스타일 */
+
+.schro-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: var(--space-md);
+  animation: modalOverlayFadeIn 0.3s ease-out;
+}
+
+@keyframes modalOverlayFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.schro-modal {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 1.5rem;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.15);
+  border: 2px solid rgba(230, 126, 34, 0.2);
+  position: relative;
+  animation: modalSlideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.schro-modal-small {
+  max-width: 350px;
+}
+
+.schro-modal-medium {
+  max-width: 500px;
+}
+
+.schro-modal-large {
+  max-width: 700px;
+}
+
+@keyframes modalSlideUp {
+  from { 
+    transform: translateY(40px) scale(0.95); 
+    opacity: 0; 
+  }
+  to { 
+    transform: translateY(0) scale(1); 
+    opacity: 1; 
+  }
+}
+
+.schro-modal-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: var(--text-medium);
+  transition: all 0.2s ease;
+  z-index: 1;
+}
+
+.schro-modal-close:hover {
+  background: rgba(255, 255, 255, 1);
+  color: var(--text-dark);
+  transform: scale(1.1);
+}
+
+.schro-modal-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.schro-modal-header::after {
+  content: '';
+  position: absolute;
+  bottom: -1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--schro-orange), transparent);
+  border-radius: 2px;
+}
+
+.schro-modal-icon {
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
+  display: block;
+  animation: modalIconFloat 3s ease-in-out infinite;
+  filter: drop-shadow(0 4px 12px rgba(230, 126, 34, 0.3));
+}
+
+@keyframes modalIconFloat {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-5px) scale(1.05); }
+}
+
+.schro-modal-title {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.schro-modal-content {
+  color: var(--text-medium);
+  line-height: 1.6;
+}
+
+.schro-modal-message {
+  font-size: 1.1rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.schro-modal-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.schro-modal-button {
+  flex: 1;
+  min-width: 120px;
+  padding: 1rem 1.5rem;
+  border: 2px solid;
+  border-radius: 1rem;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.schro-modal-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.6s ease;
+}
+
+.schro-modal-button:hover::before {
+  left: 100%;
+}
+
+.schro-modal-button-primary {
+  background: linear-gradient(135deg, var(--schro-orange), #FF8C00);
+  color: white;
+  border-color: var(--schro-orange);
+  box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3);
+}
+
+.schro-modal-button-primary:hover {
+  background: linear-gradient(135deg, #FF8C00, var(--schro-orange));
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(230, 126, 34, 0.4);
+}
+
+.schro-modal-button-secondary {
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--text-dark);
+  border-color: rgba(230, 126, 34, 0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.schro-modal-button-secondary:hover {
+  background: rgba(255, 255, 255, 1);
+  border-color: var(--schro-orange);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* 모달 타입별 스타일 */
+.schro-modal-success .schro-modal-icon {
+  color: #4CAF50;
+}
+
+.schro-modal-warning .schro-modal-icon {
+  color: #FF9800;
+}
+
+.schro-modal-error .schro-modal-icon {
+  color: #F44336;
+}
+
+.schro-modal-info .schro-modal-icon {
+  color: var(--schro-orange);
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+  .schro-modal {
+    padding: 2rem;
+    margin: 1rem;
+    border-radius: 1.2rem;
+  }
+  
+  .schro-modal-title {
+    font-size: 1.5rem;
+  }
+  
+  .schro-modal-icon {
+    font-size: 3rem;
+  }
+  
+  .schro-modal-buttons {
+    flex-direction: column;
+  }
+  
+  .schro-modal-button {
+    min-width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .schro-modal-overlay {
+    padding: var(--space-sm);
+  }
+  
+  .schro-modal {
+    padding: 1.5rem;
+  }
+  
+  .schro-modal-close {
+    top: 1rem;
+    right: 1rem;
+    width: 35px;
+    height: 35px;
+  }
+}

@@ -1,0 +1,605 @@
+/* SchRo 우체부 홈페이지 스타일 */
+
+.schro-home {
+  background: var(--bg-warm);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.schro-home .schro-container {
+  position: relative;
+  padding: 0 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Hero Section - 슈로 등장 */
+.schro-hero-section {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 2rem 0;
+  margin-bottom: 3rem;
+}
+
+.schro-hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 800px;
+  gap: 2rem;
+}
+
+.schro-hero-character {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.schro-hero-character img {
+  width: 200px;
+  height: auto;
+  object-fit: contain;
+}
+
+.schro-hero-bubble {
+  font-size: var(--text-lg);
+}
+
+.schro-hero-text {
+  max-width: 600px;
+}
+
+.schro-main-title {
+  font-size: var(--text-5xl);
+  margin-bottom: 1rem;
+}
+
+.schro-hero-description {
+  font-size: var(--text-lg);
+  margin-bottom: 2rem;
+}
+
+.schro-hero-actions {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.schro-btn-large {
+  padding: var(--space-lg) var(--space-2xl);
+  font-size: var(--text-xl);
+  font-weight: 600;
+}
+
+/* SchRo 소개 섹션 */
+.schro-intro-section {
+  margin: 3rem 0;
+  padding: 2rem 1rem;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 1rem;
+  border: 1px solid rgba(230, 126, 34, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.schro-intro-content {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.schro-intro-character img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+}
+
+.schro-intro-features {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.schro-feature {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(230, 126, 34, 0.1);
+  transition: all 0.3s ease;
+}
+
+.schro-feature:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
+}
+
+.schro-feature-icon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, var(--schro-orange), var(--schro-orange-light));
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: var(--text-xl);
+  flex-shrink: 0;
+  box-shadow: var(--shadow-soft);
+}
+
+.schro-feature-content h3 {
+  font-family: var(--font-casual);
+  font-size: var(--text-xl);
+  color: var(--text-dark);
+  margin-bottom: var(--space-sm);
+}
+
+.schro-feature-content p {
+  color: var(--text-medium);
+  line-height: 1.6;
+}
+
+/* 편지 여행 과정 */
+.schro-journey-section {
+  margin: 3rem 0;
+  padding: 2rem 1rem;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 107, 107, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.schro-journey-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.schro-journey-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 200px;
+  position: relative;
+}
+
+.schro-step-number {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  width: 40px;
+  height: 40px;
+  background: var(--letter-heart);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: var(--text-lg);
+  box-shadow: var(--shadow-soft);
+  z-index: 2;
+}
+
+.schro-step-content {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 107, 107, 0.15);
+  transition: all 0.3s ease;
+}
+
+.schro-step-content:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
+}
+
+.schro-step-icon {
+  margin-bottom: var(--space-lg);
+  display: flex;
+  justify-content: center;
+}
+
+.schro-step-image {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  filter: drop-shadow(var(--shadow-soft));
+}
+
+.schro-delivery-box {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: var(--text-2xl);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.schro-magic-moment {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--accent-yellow), var(--schro-orange));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-3xl);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.schro-step-content h3 {
+  font-family: var(--font-brand);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: var(--space-sm);
+}
+
+.schro-step-content p {
+  font-size: var(--text-sm);
+  color: var(--text-medium);
+  line-height: 1.5;
+}
+
+.schro-journey-arrow {
+  font-size: var(--text-2xl);
+  color: var(--schro-orange);
+  font-weight: 700;
+}
+
+/* 실제 체험 섹션 */
+.schro-demo-section {
+  margin: 3rem 0;
+  padding: 2rem 1rem;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 1rem;
+  border: 1px solid rgba(52, 152, 219, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.schro-demo-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.schro-demo-character {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+  margin-top: var(--space-xl);
+}
+
+.schro-demo-character img {
+  width: 120px;
+  height: auto;
+}
+
+.schro-demo-bubble {
+  /* 애니메이션 제거 */
+}
+
+.schro-demo-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.schro-demo-card {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(52, 152, 219, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.schro-demo-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
+}
+
+
+.schro-demo-preview {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  margin-bottom: 1.5rem;
+}
+
+.schro-demo-image {
+  width: 120px;
+  height: auto;
+  object-fit: contain;
+}
+
+.schro-mystery-envelope {
+  position: relative;
+  width: 120px;
+  height: 80px;
+}
+
+.schro-envelope-front {
+  width: 100%;
+  height: 100%;
+  background: var(--letter-cream);
+  border: 3px solid var(--schro-orange);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  color: var(--text-medium);
+  position: relative;
+}
+
+.schro-envelope-seal {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 30px;
+  height: 30px;
+  background: var(--letter-heart);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-sm);
+}
+
+.schro-demo-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  background: var(--schro-orange);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: var(--text-xl);
+  opacity: 0;
+  transition: var(--transition-smooth);
+}
+
+.schro-demo-card:hover .schro-demo-overlay {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.schro-demo-content {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.schro-demo-content h3 {
+  font-family: var(--font-brand);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: var(--space-md);
+}
+
+.schro-demo-content p {
+  color: var(--text-medium);
+  line-height: 1.6;
+  margin-bottom: var(--space-lg);
+}
+
+.schro-demo-content .schro-btn {
+  width: 100%;
+}
+
+/* 슈로의 약속 섹션 */
+.schro-promise-section {
+  margin: 3rem 0;
+  padding: 2rem 1rem;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 1rem;
+  border: 1px solid rgba(39, 174, 96, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.schro-promise-content {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.schro-promise-character {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.schro-promise-character img {
+  width: 100%;
+  max-width: 250px;
+  height: auto;
+}
+
+.schro-promise-bubble {
+  /* 애니메이션 제거 */
+}
+
+.schro-promises {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.schro-promise-item {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 0.75rem;
+  border: 1px solid rgba(39, 174, 96, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.schro-promise-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
+}
+
+.schro-promise-icon {
+  font-size: var(--text-2xl);
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--letter-cream);
+  border-radius: 50%;
+  border: 3px solid var(--schro-orange);
+  flex-shrink: 0;
+}
+
+.schro-promise-item h4 {
+  font-family: var(--font-brand);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: var(--space-xs);
+}
+
+.schro-promise-item p {
+  color: var(--text-medium);
+  font-size: var(--text-sm);
+}
+
+/* 애니메이션 제거 - 깔끔한 디자인을 위해 */
+
+/* 태블릿 반응형 */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .schro-hero-content {
+    max-width: 700px;
+  }
+  
+  .schro-hero-character img {
+    width: 180px;
+  }
+  
+  .schro-main-title {
+    font-size: var(--text-4xl);
+  }
+  
+  .schro-intro-content,
+  .schro-promise-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: var(--space-2xl);
+  }
+  
+  .schro-demo-cards {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  }
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+  .schro-hero-section {
+    padding: 1.5rem 0;
+    margin-bottom: 2rem;
+  }
+  
+  .schro-hero-character img {
+    width: 150px;
+  }
+  
+  .schro-main-title {
+    font-size: var(--text-3xl);
+  }
+  
+  .schro-hero-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .schro-btn-large {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .schro-intro-section,
+  .schro-journey-section,
+  .schro-demo-section,
+  .schro-promise-section {
+    margin: 2rem 0;
+    padding: 1.5rem;
+  }
+  
+  .schro-intro-content,
+  .schro-promise-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 1.5rem;
+  }
+  
+  .schro-journey-steps {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .schro-journey-arrow {
+    transform: rotate(90deg);
+  }
+  
+  .schro-demo-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .schro-feature {
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem;
+  }
+  
+  .schro-journey-step {
+    max-width: 280px;
+  }
+  
+  .schro-step-content {
+    padding: 1.5rem;
+  }
+}

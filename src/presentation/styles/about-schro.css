@@ -1,0 +1,906 @@
+/* SchRo About 페이지 디자인 - 양자역학 테마 */
+
+.schro-about-page {
+  min-height: 100vh;
+  background: var(--bg-warm);
+  position: relative;
+  overflow-x: hidden;
+}
+
+.schro-about-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(138, 43, 226, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(75, 0, 130, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(0, 191, 255, 0.06) 0%, transparent 40%),
+    radial-gradient(circle at 70% 60%, rgba(230, 126, 34, 0.05) 0%, transparent 30%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.schro-about-container {
+  position: relative;
+  z-index: 2;
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* 히어로 섹션 */
+.schro-about-hero {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  padding: 1rem 0;
+  position: relative;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+
+.schro-about-floating-particles {
+  position: absolute;
+  animation: floatQuantum 6s ease-in-out infinite;
+  z-index: 1;
+}
+
+.schro-about-floating-particles:nth-child(1) {
+  top: -30px;
+  left: 15%;
+  font-size: var(--text-2xl);
+  animation-delay: -1s;
+}
+
+.schro-about-floating-particles:nth-child(2) {
+  top: 20px;
+  right: 20%;
+  font-size: var(--text-xl);
+  animation-delay: -3s;
+  animation-direction: reverse;
+}
+
+.schro-about-floating-particles:nth-child(3) {
+  bottom: -20px;
+  left: 25%;
+  font-size: var(--text-lg);
+  animation-delay: -0.5s;
+}
+
+.schro-about-floating-particles:nth-child(4) {
+  top: 50%;
+  right: 10%;
+  font-size: var(--text-lg);
+  animation-delay: -4s;
+}
+
+@keyframes floatQuantum {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg) scale(1); 
+    opacity: 0.4; 
+  }
+  33% { 
+    transform: translateY(-20px) rotate(120deg) scale(1.2); 
+    opacity: 0.8; 
+  }
+  66% { 
+    transform: translateY(-10px) rotate(240deg) scale(0.9); 
+    opacity: 0.6; 
+  }
+}
+
+.schro-about-hero-character {
+  width: 180px;
+  height: 180px;
+  margin: 0 auto 2rem;
+  background: linear-gradient(135deg, rgba(138, 43, 226, 0.1), rgba(75, 0, 130, 0.05));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 2px solid var(--schro-orange-light);
+  position: relative;
+  z-index: 2;
+}
+
+
+.schro-about-hero-character img {
+  width: 130px;
+  height: 130px;
+  object-fit: contain;
+  filter: drop-shadow(var(--shadow-soft));
+}
+
+.schro-about-hero-title {
+  font-family: var(--font-brand);
+  font-size: var(--text-5xl);
+  font-weight: 700;
+  color: var(--schro-orange);
+  margin-bottom: var(--space-lg);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.schro-about-hero-subtitle {
+  font-size: var(--text-xl);
+  color: var(--text-medium);
+  font-weight: 500;
+  line-height: 1.7;
+  max-width: 700px;
+  margin: 0 auto var(--space-xl);
+}
+
+.schro-about-hero-subtitle strong {
+  color: var(--schro-orange);
+  font-weight: 700;
+}
+
+.schro-highlight {
+  background: linear-gradient(135deg, var(--schro-orange), var(--letter-heart));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 800;
+}
+
+.schro-about-quantum-state {
+  margin-top: var(--space-2xl);
+}
+
+.schro-about-state-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  background: rgba(138, 43, 226, 0.1);
+  border: 2px solid rgba(138, 43, 226, 0.3);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.schro-about-state-box {
+  font-size: var(--text-2xl);
+  animation: quantumFlicker 2s ease-in-out infinite;
+}
+
+@keyframes quantumFlicker {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.9); }
+}
+
+.schro-about-state-text {
+  font-size: var(--text-sm);
+  color: var(--text-dark);
+  font-weight: 600;
+  text-align: center;
+}
+
+/* 양자역학적 원리 설명 섹션 */
+.schro-about-quantum-principle {
+  margin: 2rem 0;
+  padding: 1.5rem 1rem;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 1rem;
+  border: 1px solid rgba(138, 43, 226, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  position: relative;
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+
+.schro-about-principle-header {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+  position: relative;
+  z-index: 2;
+}
+
+.schro-about-principle-title {
+  font-family: var(--font-brand);
+  font-size: var(--text-4xl);
+  font-weight: 700;
+  color: var(--schro-orange);
+  margin-bottom: var(--space-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+}
+
+.schro-about-quantum-icon {
+  font-size: var(--text-3xl);
+}
+
+.schro-about-principle-subtitle {
+  font-size: var(--text-lg);
+  color: var(--text-medium);
+  font-weight: 500;
+}
+
+.schro-about-principle-visual {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 0.75rem;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(138, 43, 226, 0.15);
+  position: relative;
+  z-index: 2;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.schro-about-quantum-states {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xl);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.schro-about-state-before,
+.schro-about-state-after {
+  flex: 1;
+  text-align: center;
+  padding: var(--space-xl);
+  background: rgba(138, 43, 226, 0.05);
+  border-radius: var(--radius-lg);
+  border: 2px solid rgba(138, 43, 226, 0.2);
+}
+
+.schro-about-state-icon {
+  font-size: var(--text-4xl);
+  margin-bottom: var(--space-lg);
+  display: block;
+}
+
+.schro-about-state-arrow {
+  font-size: var(--text-2xl);
+  color: var(--schro-orange);
+  font-weight: 700;
+  margin: 0 var(--space-lg);
+}
+
+.schro-about-quantum-states h4 {
+  font-family: var(--font-brand);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--schro-orange);
+  margin-bottom: var(--space-md);
+}
+
+.schro-about-quantum-states p {
+  font-size: var(--text-base);
+  color: var(--text-medium);
+  line-height: 1.6;
+}
+
+.schro-about-quantum-states strong {
+  color: var(--text-dark);
+  font-weight: 700;
+}
+
+/* 효용 섹션 */
+.schro-about-benefits {
+  margin: 2rem 0;
+  padding: 1.5rem 1rem;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 1rem;
+  border: 1px solid rgba(0, 191, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  position: relative;
+  animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+
+.schro-about-benefits-title {
+  font-family: var(--font-brand);
+  font-size: var(--text-4xl);
+  font-weight: 700;
+  color: var(--schro-orange);
+  text-align: center;
+  margin-bottom: var(--space-xl);
+  position: relative;
+  z-index: 2;
+}
+
+.schro-about-benefit-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 1.5rem;
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.schro-about-benefit-card {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(138, 43, 226, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.schro-about-benefit-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
+}
+
+.schro-about-benefit-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-2xl);
+  padding-bottom: var(--space-lg);
+  border-bottom: 2px solid rgba(138, 43, 226, 0.1);
+}
+
+.schro-about-benefit-icon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, rgba(138, 43, 226, 0.8), rgba(75, 0, 130, 0.6));
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-2xl);
+  box-shadow: var(--shadow-medium);
+}
+
+.schro-about-benefit-header h3 {
+  font-family: var(--font-brand);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--schro-orange);
+  margin: 0;
+}
+
+.schro-about-benefit-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.schro-about-benefit-point {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-lg);
+  padding: var(--space-lg);
+  background: rgba(138, 43, 226, 0.05);
+  border-radius: var(--radius-md);
+  border-left: 4px solid rgba(138, 43, 226, 0.3);
+}
+
+.schro-about-point-icon {
+  font-size: var(--text-xl);
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.schro-about-benefit-point div {
+  font-size: var(--text-base);
+  color: var(--text-medium);
+  line-height: 1.6;
+}
+
+.schro-about-benefit-point strong {
+  color: var(--text-dark);
+  font-weight: 700;
+}
+
+.schro-about-benefit-highlight {
+  background: linear-gradient(135deg, var(--letter-cream), rgba(255, 248, 220, 0.9));
+  border: 2px solid var(--schro-orange-light);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  font-size: var(--text-sm);
+  color: var(--schro-orange);
+  font-weight: 700;
+  text-align: center;
+  font-style: italic;
+  margin-top: var(--space-md);
+}
+
+/* 시나리오 섹션 */
+.schro-about-scenarios {
+  margin: 2rem 0;
+  padding: 1.5rem 1rem;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 107, 107, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  position: relative;
+  animation: fadeInUp 0.8s ease-out 0.6s both;
+}
+
+
+.schro-about-scenarios-title {
+  font-family: var(--font-brand);
+  font-size: var(--text-4xl);
+  font-weight: 700;
+  color: var(--schro-orange);
+  text-align: center;
+  margin-bottom: var(--space-xl);
+  position: relative;
+  z-index: 2;
+}
+
+.schro-about-scenario-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 1.5rem;
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.schro-about-scenario-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-medium);
+  border: 3px solid rgba(138, 43, 226, 0.1);
+  transition: var(--transition-smooth);
+  position: relative;
+}
+
+.schro-about-scenario-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-strong);
+  border-color: rgba(138, 43, 226, 0.3);
+}
+
+.schro-about-scenario-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-2xl);
+  padding-bottom: var(--space-lg);
+  border-bottom: 2px solid rgba(138, 43, 226, 0.1);
+}
+
+.schro-about-scenario-emoji {
+  font-size: var(--text-3xl);
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, rgba(138, 43, 226, 0.1), rgba(75, 0, 130, 0.05));
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgba(138, 43, 226, 0.2);
+}
+
+.schro-about-scenario-header h3 {
+  font-family: var(--font-brand);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--schro-orange);
+  margin: 0;
+}
+
+.schro-about-scenario-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.schro-about-scenario-content p {
+  font-size: var(--text-base);
+  color: var(--text-medium);
+  line-height: 1.7;
+  margin: 0;
+  padding: var(--space-md);
+  background: rgba(138, 43, 226, 0.03);
+  border-radius: var(--radius-md);
+  border-left: 3px solid rgba(138, 43, 226, 0.2);
+}
+
+.schro-about-scenario-content strong {
+  color: var(--text-dark);
+  font-weight: 700;
+}
+
+.schro-about-intro-content {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3xl);
+  box-shadow: var(--shadow-strong);
+  border: 3px solid rgba(230, 126, 34, 0.1);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-3xl);
+  align-items: center;
+}
+
+.schro-about-intro-title {
+  font-family: var(--font-brand);
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  color: var(--schro-orange);
+  margin-bottom: var(--space-lg);
+  line-height: 1.3;
+}
+
+.schro-about-intro-description {
+  font-size: var(--text-lg);
+  color: var(--text-medium);
+  line-height: 1.7;
+  margin-bottom: var(--space-xl);
+  font-weight: 500;
+}
+
+.schro-about-intro-features {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.schro-about-feature {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  font-size: var(--text-base);
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+.schro-about-feature-icon {
+  font-size: var(--text-xl);
+  width: 40px;
+  text-align: center;
+}
+
+.schro-about-intro-character {
+  width: 200px;
+  height: 200px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-strong);
+  border: 4px solid var(--schro-orange-light);
+  animation: introCharacterWobble 4s ease-in-out infinite;
+}
+
+@keyframes introCharacterWobble {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(2deg) scale(1.02); }
+  75% { transform: rotate(-2deg) scale(0.98); }
+}
+
+.schro-about-intro-character img {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+}
+
+/* 사용법 안내 */
+.schro-about-howto {
+  margin: 2rem 0;
+  padding: 1.5rem 1rem;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 1rem;
+  border: 1px solid rgba(230, 126, 34, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  position: relative;
+  animation: fadeInUp 0.8s ease-out 0.6s both;
+}
+
+
+.schro-about-howto-title {
+  font-family: var(--font-brand);
+  font-size: var(--text-4xl);
+  font-weight: 700;
+  color: var(--schro-orange);
+  margin-bottom: var(--space-xl);
+  position: relative;
+  z-index: 2;
+}
+
+.schro-about-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.schro-about-step {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-medium);
+  border: 3px solid rgba(230, 126, 34, 0.1);
+  position: relative;
+  transition: var(--transition-smooth);
+  text-align: center;
+}
+
+.schro-about-step:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-strong);
+}
+
+.schro-about-step-number {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 40px;
+  background: var(--schro-orange);
+  color: white;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-brand);
+  font-weight: 700;
+  font-size: var(--text-lg);
+  box-shadow: var(--shadow-medium);
+}
+
+.schro-about-step-icon {
+  font-size: var(--text-3xl);
+  margin: 1rem 0;
+}
+
+.schro-about-step-title {
+  font-family: var(--font-brand);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--schro-orange);
+  margin-bottom: var(--space-lg);
+}
+
+.schro-about-step-description {
+  font-size: var(--text-base);
+  color: var(--text-medium);
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+/* CTA 섹션 */
+.schro-about-cta {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(230, 126, 34, 0.15);
+  text-align: center;
+  position: relative;
+  animation: fadeInUp 0.8s ease-out 0.8s both;
+  margin-top: 2rem;
+}
+
+
+.schro-about-cta-character {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 1.5rem;
+  background: linear-gradient(135deg, rgba(138, 43, 226, 0.1), rgba(75, 0, 130, 0.05));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+  border: 2px solid var(--schro-orange-light);
+  position: relative;
+}
+
+.schro-about-cta-character img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+}
+
+.schro-about-cta-benefits-quick {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-lg);
+  margin: var(--space-lg) 0 var(--space-xl);
+}
+
+.schro-about-cta-benefits-quick span {
+  background: rgba(138, 43, 226, 0.1);
+  border: 2px solid rgba(138, 43, 226, 0.2);
+  border-radius: var(--radius-lg);
+  padding: var(--space-sm) var(--space-lg);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-dark);
+  white-space: nowrap;
+}
+
+.schro-about-cta-title {
+  font-family: var(--font-brand);
+  font-size: var(--text-4xl);
+  font-weight: 700;
+  color: var(--schro-orange);
+  margin-bottom: var(--space-lg);
+  line-height: 1.2;
+}
+
+.schro-about-cta-description {
+  font-size: var(--text-xl);
+  color: var(--text-medium);
+  margin-bottom: var(--space-2xl);
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.schro-about-cta-buttons {
+  display: flex;
+  gap: var(--space-lg);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.schro-about-cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-lg) var(--space-2xl);
+  border: 3px solid transparent;
+  border-radius: var(--radius-xl);
+  font-family: var(--font-brand);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition-bounce);
+  box-shadow: var(--shadow-medium);
+  min-width: 200px;
+  position: relative;
+  overflow: hidden;
+}
+
+
+.schro-about-cta-button-primary {
+  background: var(--letter-heart);
+  border-color: var(--letter-heart);
+  color: white;
+  font-weight: 600;
+}
+
+.schro-about-cta-button-primary:hover {
+  background: #E55555;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(255, 107, 107, 0.4);
+}
+
+.schro-about-cta-button-secondary {
+  background: #9B59B6;
+  border-color: #9B59B6;
+  color: white;
+  font-weight: 600;
+}
+
+.schro-about-cta-button-secondary:hover {
+  background: #8E44AD;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(155, 89, 182, 0.4);
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+  .schro-about-container {
+    padding: var(--space-2xl) var(--space-md);
+  }
+  
+  /* 모바일에서 섹션 간격 유지 */
+  .schro-about-hero {
+    padding: 1.5rem 0;
+    margin-bottom: 2rem;
+  }
+  
+  .schro-about-quantum-principle,
+  .schro-about-benefits,
+  .schro-about-scenarios,
+  .schro-about-howto {
+    margin: 1.5rem 0;
+    padding: 1.25rem;
+  }
+  
+  .schro-about-cta {
+    padding: 1.25rem;
+    margin-top: 1.5rem;
+  }
+  
+  .schro-about-hero-character {
+    width: 140px;
+    height: 140px;
+  }
+  
+  .schro-about-hero-character img {
+    width: 110px;
+    height: 110px;
+  }
+  
+  .schro-about-hero-title {
+    font-size: var(--text-4xl);
+  }
+  
+  .schro-about-quantum-states {
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+  
+  .schro-about-state-arrow {
+    transform: rotate(90deg);
+    margin: var(--space-lg) 0;
+  }
+  
+  .schro-about-benefit-cards {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .schro-about-scenario-cards {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .schro-about-steps {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .schro-about-cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .schro-about-cta-button {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .schro-about-cta-benefits-quick {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .schro-about-principle-title {
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .schro-about-hero-title {
+    font-size: var(--text-3xl);
+  }
+  
+  .schro-about-cta-title {
+    font-size: var(--text-3xl);
+  }
+  
+  .schro-about-howto-title {
+    font-size: var(--text-3xl);
+  }
+  
+  .schro-about-intro-title {
+    font-size: var(--text-2xl);
+  }
+}

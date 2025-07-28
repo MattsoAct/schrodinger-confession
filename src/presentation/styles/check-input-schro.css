@@ -1,0 +1,376 @@
+/* SchRo 편지찾기 입력 페이지 - 우체부 테마 디자인 */
+
+.schro-check-input-page {
+  background: var(--bg-warm);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.schro-check-input-page .schro-container {
+  position: relative;
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Hero Section */
+.schro-check-input-hero {
+  margin: 3rem 0;
+  padding: 2rem 1rem;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 1rem;
+  border: 1px solid rgba(52, 152, 219, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.schro-hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.schro-hero-character {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.schro-hero-character img {
+  width: 120px;
+  height: auto;
+  object-fit: contain;
+}
+
+.schro-hero-bubble {
+  font-size: var(--text-lg);
+}
+
+.schro-hero-text {
+  max-width: 600px;
+}
+
+.schro-main-title {
+  font-size: var(--text-4xl);
+  margin-bottom: 1rem;
+}
+
+.schro-hero-description {
+  font-size: var(--text-lg);
+  margin-bottom: 2rem;
+}
+
+/* Compact Layout */
+.schro-check-input-compact {
+  margin: 3rem 0;
+  padding: 2rem 1rem;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 1rem;
+  border: 1px solid rgba(52, 152, 219, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  max-width: 500px;
+  margin: 3rem auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.schro-compact-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.schro-header-icon {
+  margin-bottom: 1rem;
+  position: relative;
+  display: inline-block;
+}
+
+.schro-compact-character {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(138, 43, 226, 0.1), rgba(75, 0, 130, 0.05));
+  padding: 0.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 2px solid var(--schro-orange);
+}
+
+.schro-compact-subtitle {
+  font-size: var(--text-lg);
+  color: var(--text-medium);
+  margin: var(--space-md) 0 0 0;
+  line-height: 1.5;
+}
+
+.schro-compact-card {
+  animation: fadeInUp 0.8s ease-out;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.schro-compact-card:hover {
+  transform: translateY(-2px);
+}
+
+
+.schro-compact-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.schro-compact-help {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+  padding: var(--space-md);
+  background: rgba(255, 193, 7, 0.1);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  color: var(--text-medium);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+
+.schro-compact-help .schro-help-icon {
+  color: #F39C12;
+  font-size: var(--text-base);
+}
+
+/* Welcome Section */
+.schro-welcome-section {
+  text-align: center;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.schro-welcome-character {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.schro-welcome-character img {
+  width: 120px;
+  height: auto;
+}
+
+.schro-welcome-bubble {
+  transform: rotate(-2deg);
+  animation: wiggle 3s ease-in-out infinite;
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-2deg); }
+  25% { transform: rotate(0deg); }
+  50% { transform: rotate(2deg); }
+  75% { transform: rotate(-1deg); }
+}
+
+/* Input Card */
+.schro-input-card {
+  text-align: center;
+  transform: rotate(-0.5deg);
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.schro-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+.schro-card-icon {
+  font-size: var(--text-2xl);
+  color: var(--schro-orange);
+}
+
+/* Form Styles */
+.schro-input-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.schro-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.schro-form-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  font-family: var(--font-brand);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.schro-input-wrapper {
+  position: relative;
+}
+
+.schro-link-input {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  text-align: center;
+  font-size: var(--text-base);
+  font-weight: 500;
+  border: 1px solid rgba(230, 126, 34, 0.2);
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.9);
+  font-family: var(--font-brand);
+  color: var(--text-dark);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+  position: relative;
+  z-index: 10;
+  cursor: text;
+}
+
+.schro-link-input:focus {
+  outline: none;
+  border-color: var(--schro-orange);
+  box-shadow: 0 4px 20px rgba(230, 126, 34, 0.15);
+  background: white;
+  z-index: 11;
+}
+
+.schro-form-helper {
+  font-size: var(--text-sm);
+  color: var(--text-medium);
+  text-align: center;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* Help Card */
+.schro-help-card {
+  background: linear-gradient(135deg, rgba(255, 193, 7, 0.1), rgba(255, 244, 230, 0.9));
+  border: 3px solid rgba(255, 193, 7, 0.4);
+  transform: rotate(0.5deg);
+  animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+.schro-help-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-sm);
+}
+
+.schro-help-icon {
+  font-size: var(--text-xl);
+  color: #F39C12;
+  animation: helpPulse 2s ease-in-out infinite;
+}
+
+@keyframes helpPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.1); }
+}
+
+.schro-help-title {
+  font-family: var(--font-brand);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+.schro-help-text {
+  color: var(--text-medium);
+  line-height: 1.6;
+  margin: 0;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Button Enhancements */
+.schro-btn-large {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.schro-btn-large::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: var(--transition-smooth);
+}
+
+.schro-btn-large:hover::before {
+  left: 100%;
+}
+
+/* Animations */
+@keyframes gentle-float {
+  0%, 100% { transform: rotate(1deg) translateY(0); }
+  50% { transform: rotate(-1deg) translateY(-5px); }
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+  .schro-check-input-compact {
+    padding: var(--space-xl) var(--space-md);
+    min-height: 70vh;
+  }
+  
+  .schro-compact-subtitle {
+    font-size: var(--text-base);
+  }
+  
+  .schro-link-input {
+    padding: var(--space-md) var(--space-lg);
+    padding-right: calc(var(--space-lg) + 35px);
+    font-size: var(--text-sm);
+  }
+  
+  .schro-input-icon {
+    right: var(--space-md);
+    font-size: var(--text-lg);
+  }
+}
+
+@media (max-width: 480px) {
+  .schro-check-input-compact {
+    padding: var(--space-lg) var(--space-sm);
+    gap: var(--space-lg);
+  }
+  
+  .schro-compact-header h1 {
+    font-size: var(--text-2xl);
+  }
+  
+  .schro-compact-subtitle {
+    font-size: var(--text-sm);
+  }
+}

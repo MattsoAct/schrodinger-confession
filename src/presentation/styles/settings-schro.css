@@ -1,0 +1,550 @@
+/* SchRo 설정 페이지 디자인 */
+
+.schro-settings-page {
+  min-height: 100vh;
+  background: var(--bg-warm);
+  position: relative;
+  overflow-x: hidden;
+}
+
+.schro-settings-container {
+  position: relative;
+  padding: 2rem 1rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* 로딩 상태 */
+.schro-settings-loading {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.schro-settings-loading-character {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto var(--space-lg);
+  background: var(--gradient-primary);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-medium);
+  border: 4px solid var(--schro-orange-light);
+  animation: loadingBounce 2s ease-in-out infinite;
+}
+
+@keyframes loadingBounce {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-10px) scale(1.05); }
+}
+
+.schro-settings-loading-character img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  animation: characterSpin 3s linear infinite;
+}
+
+@keyframes characterSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.schro-settings-loading-title {
+  font-family: var(--font-brand);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--schro-orange);
+  margin-bottom: var(--space-sm);
+}
+
+.schro-settings-loading-subtitle {
+  font-size: var(--text-base);
+  color: var(--text-medium);
+  font-weight: 500;
+}
+
+/* 에러 상태 */
+.schro-settings-error {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.schro-settings-error-card {
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(255, 154, 158, 0.1));
+  border: 3px solid var(--coral);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2xl);
+  text-align: center;
+  max-width: 500px;
+  box-shadow: var(--shadow-strong);
+}
+
+.schro-settings-error-title {
+  font-family: var(--font-brand);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--coral);
+  margin-bottom: var(--space-lg);
+}
+
+.schro-settings-error-text {
+  font-size: var(--text-base);
+  color: var(--text-medium);
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+/* 헤더 섹션 */
+.schro-settings-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  animation: fadeInUp 0.8s ease-out;
+  position: relative;
+}
+
+.schro-settings-header-character {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 2rem;
+  background: linear-gradient(135deg, rgba(138, 43, 226, 0.1), rgba(75, 0, 130, 0.05));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 2px solid var(--schro-orange);
+  position: relative;
+  animation: headerPulse 3s ease-in-out infinite;
+}
+
+@keyframes headerPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+.schro-settings-header-character::after {
+  content: '⚙️';
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  font-size: var(--text-base);
+  background: var(--schro-orange);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: settingsGear 3s linear infinite;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes settingsGear {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.schro-settings-header-character img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+}
+
+.schro-settings-header-title {
+  font-family: var(--font-brand);
+  font-size: var(--text-4xl);
+  font-weight: 700;
+  color: var(--schro-orange);
+  margin-bottom: var(--space-sm);
+}
+
+.schro-settings-header-subtitle {
+  font-size: var(--text-lg);
+  color: var(--text-medium);
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* 설정 카드 */
+.schro-settings-card {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(155, 89, 182, 0.1);
+  margin-bottom: 2rem;
+  position: relative;
+  transition: all 0.3s ease;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.schro-settings-card:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.schro-settings-card:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.schro-settings-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
+}
+
+.schro-settings-card-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+.schro-settings-card-icon {
+  font-size: var(--text-2xl);
+  padding: 1rem;
+  background: linear-gradient(135deg, var(--schro-orange), var(--schro-orange-light));
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 4px 12px rgba(230, 126, 34, 0.3);
+  transition: all 0.3s ease;
+  width: 60px;
+  height: 60px;
+}
+
+.schro-settings-card:hover .schro-settings-card-icon {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 6px 20px rgba(230, 126, 34, 0.4);
+}
+
+.schro-settings-card-title {
+  font-family: var(--font-brand);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--schro-orange);
+  margin: 0;
+}
+
+.schro-settings-card-description {
+  font-size: var(--text-sm);
+  color: var(--text-medium);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+/* 폼 스타일 */
+.schro-settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.schro-settings-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  position: relative;
+}
+
+.schro-settings-form-label {
+  font-family: var(--font-brand);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.schro-settings-current-info {
+  font-size: var(--text-sm);
+  color: var(--schro-orange);
+  background: rgba(255, 248, 220, 0.8);
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(230, 126, 34, 0.2);
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.schro-settings-current-info::before {
+  content: '✨';
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.875rem;
+  opacity: 0.7;
+}
+
+.schro-settings-input {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  border: 1px solid rgba(230, 126, 34, 0.2);
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.9);
+  font-family: var(--font-brand);
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--text-dark);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+}
+
+.schro-settings-input:focus {
+  outline: none;
+  border-color: var(--schro-orange);
+  box-shadow: 0 4px 20px rgba(230, 126, 34, 0.15);
+  background: white;
+}
+
+.schro-settings-input::placeholder {
+  color: var(--text-light);
+  font-weight: 400;
+}
+
+/* 제출 버튼 */
+.schro-settings-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, var(--schro-orange), var(--schro-orange-light));
+  border: 3px solid var(--schro-orange);
+  border-radius: var(--radius-xl);
+  font-family: var(--font-brand);
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.schro-settings-submit::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: var(--transition-smooth);
+}
+
+.schro-settings-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
+  background: var(--schro-orange);
+  color: white;
+}
+
+.schro-settings-submit:hover:not(:disabled)::before {
+  left: 100%;
+}
+
+.schro-settings-submit:disabled {
+  background: #E5E7EB;
+  border-color: #E5E7EB;
+  color: var(--text-light);
+  cursor: not-allowed;
+  transform: none;
+  opacity: 0.7;
+}
+
+/* 특별 카드 스타일 */
+.schro-settings-card-nickname {
+  border-left: 4px solid #3B82F6;
+}
+
+.schro-settings-card-nickname .schro-settings-card-icon {
+  background: linear-gradient(135deg, #3B82F6, #60A5FA);
+  color: white;
+}
+
+.schro-settings-card-password {
+  border-left: 4px solid #EF4444;
+}
+
+.schro-settings-card-password .schro-settings-card-icon {
+  background: linear-gradient(135deg, #EF4444, #F87171);
+  color: white;
+}
+
+/* 성공/에러 메시지 */
+.schro-settings-message {
+  position: fixed;
+  top: var(--space-lg);
+  right: var(--space-lg);
+  padding: var(--space-lg) var(--space-xl);
+  border-radius: var(--radius-lg);
+  font-family: var(--font-brand);
+  font-weight: 600;
+  font-size: var(--text-base);
+  box-shadow: var(--shadow-strong);
+  z-index: 1000;
+  animation: messageSlideIn 0.4s ease-out;
+}
+
+@keyframes messageSlideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.schro-settings-message-success {
+  background: linear-gradient(135deg, rgba(171, 235, 198, 0.95), rgba(200, 230, 201, 0.95));
+  border: 3px solid var(--accent-green);
+  color: var(--accent-green);
+}
+
+.schro-settings-message-error {
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(255, 154, 158, 0.1));
+  border: 3px solid var(--coral);
+  color: var(--coral);
+}
+
+/* 로딩 애니메이션 */
+.schro-settings-loading-text {
+  position: relative;
+}
+
+.schro-settings-loading-text::after {
+  content: '';
+  animation: loadingDots 1.5s infinite;
+}
+
+@keyframes loadingDots {
+  0%, 33% { content: '.'; }
+  34%, 66% { content: '..'; }
+  67%, 100% { content: '...'; }
+}
+
+/* 추가 인터랙션 효과 */
+.schro-settings-form-group:focus-within .schro-settings-form-label {
+  color: var(--schro-orange);
+  transform: scale(1.02);
+  transition: all 0.3s ease;
+}
+
+.schro-settings-input:focus {
+  outline: none;
+  border-color: var(--schro-orange);
+  box-shadow: 0 4px 20px rgba(230, 126, 34, 0.15);
+  background: white;
+  transform: translateY(-1px);
+}
+
+/* 성공 상태 표시 */
+.schro-settings-form-group.success .schro-settings-input {
+  border-color: var(--accent-green);
+  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.15);
+}
+
+.schro-settings-form-group.success::after {
+  content: '✓';
+  position: absolute;
+  right: 1rem;
+  top: 2.5rem;
+  color: var(--accent-green);
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+/* 로딩 상태 */
+.schro-settings-submit.loading {
+  background: #E5E7EB;
+  color: var(--text-medium);
+  cursor: not-allowed;
+}
+
+.schro-settings-submit.loading::after {
+  content: '';
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid var(--text-medium);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-left: 0.5rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+  .schro-settings-container {
+    padding: 1.5rem 1rem;
+  }
+  
+  .schro-settings-header-character {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .schro-settings-header-character img {
+    width: 75px;
+    height: 75px;
+  }
+  
+  .schro-settings-header-title {
+    font-size: var(--text-3xl);
+  }
+  
+  .schro-settings-card {
+    padding: 1.5rem;
+  }
+  
+  .schro-settings-card-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .schro-settings-card-icon {
+    width: 50px;
+    height: 50px;
+    font-size: var(--text-lg);
+  }
+  
+  .schro-settings-message {
+    left: 1rem;
+    right: 1rem;
+    top: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .schro-settings-header-title {
+    font-size: var(--text-2xl);
+  }
+  
+  .schro-settings-card-title {
+    font-size: var(--text-lg);
+  }
+  
+  .schro-settings-submit {
+    width: 100%;
+  }
+}

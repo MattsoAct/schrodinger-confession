@@ -1,0 +1,437 @@
+/* SchRo Header & Footer 새 디자인 */
+
+/* Header Styles */
+.schro-header {
+  background: rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid rgba(155, 89, 182, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.schro-header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.schro-header-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+
+.schro-header-brand:hover {
+  transform: translateY(-1px);
+}
+
+.schro-header-logo {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, rgba(138, 43, 226, 0.1), rgba(75, 0, 130, 0.05));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border: 2px solid var(--schro-orange);
+  position: relative;
+}
+
+.schro-header-logo:hover {
+  transform: scale(1.05) rotate(5deg);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.schro-header-logo-img {
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
+}
+
+.schro-header-brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.schro-header-title {
+  font-family: var(--font-brand);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--schro-orange);
+  margin: 0;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.schro-header-subtitle {
+  font-family: var(--font-brand);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--text-medium);
+  line-height: 1;
+}
+
+.schro-header-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.schro-header-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(230, 126, 34, 0.2);
+  border-radius: 0.75rem;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--text-dark);
+  font-family: var(--font-brand);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.schro-header-button:hover {
+  background: white;
+  border-color: var(--schro-orange);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(230, 126, 34, 0.15);
+}
+
+/* SchRo 버튼만 별도 스타일 */
+.schro-header-button.schro-button {
+  background: white;
+  border: 2px solid #FF8C00;
+  color: #FF8C00 !important;
+  font-weight: 700;
+}
+
+.schro-header-button.schro-button:hover {
+  background: #FF8C00;
+  color: white !important;
+  border-color: #FF8C00;
+}
+
+/* 접근성: 포커스 상태 */
+.schro-header-button:focus {
+  outline: 3px solid var(--accent-blue);
+  outline-offset: 2px;
+}
+
+.schro-header-button:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.schro-header-button-primary {
+  background: linear-gradient(135deg, var(--schro-orange), var(--schro-orange-light));
+  border-color: var(--schro-orange);
+  color: white;
+  font-weight: 700;
+}
+
+.schro-header-button-primary:hover {
+  background: var(--schro-orange);
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(230, 126, 34, 0.3);
+}
+
+.schro-header-button-logout {
+  background: linear-gradient(135deg, #EF4444, #F87171);
+  border-color: #EF4444;
+  color: white;
+  font-weight: 700;
+}
+
+.schro-header-button-logout:hover {
+  background: #EF4444;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(239, 68, 68, 0.3);
+}
+
+.schro-header-button-letter {
+  background: linear-gradient(135deg, var(--letter-heart), #FF8A80);
+  border-color: var(--letter-heart);
+  color: white;
+}
+
+.schro-header-button-letter:hover {
+  background: var(--letter-heart);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(255, 107, 107, 0.3);
+}
+
+.schro-header-button-about {
+  background: linear-gradient(135deg, var(--soft-purple), var(--lavender));
+  border-color: var(--soft-purple);
+  color: white;
+}
+
+.schro-header-button-about:hover {
+  background: var(--soft-purple);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(155, 89, 182, 0.3);
+}
+
+.schro-header-button-check {
+  background: linear-gradient(135deg, #10B981, #34D399);
+  border-color: #10B981;
+  color: white;
+}
+
+.schro-header-button-check:hover {
+  background: #10B981;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+}
+
+/* Footer Styles */
+.schro-footer {
+  background: rgba(255, 255, 255, 0.8);
+  border-top: 1px solid rgba(155, 89, 182, 0.1);
+  margin-top: auto;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.schro-footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.schro-footer-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.schro-footer-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+
+.schro-footer-brand:hover {
+  transform: translateY(-1px);
+}
+
+.schro-footer-logo {
+  width: 35px;
+  height: 35px;
+  background: linear-gradient(135deg, rgba(138, 43, 226, 0.1), rgba(75, 0, 130, 0.05));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-base);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  border: 2px solid var(--schro-orange);
+}
+
+.schro-footer-text {
+  font-family: var(--font-brand);
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--schro-orange);
+}
+
+.schro-footer-company {
+  font-size: var(--text-sm);
+  color: var(--text-medium);
+  font-weight: 500;
+}
+
+.schro-footer-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xl);
+}
+
+.schro-footer-links {
+  display: flex;
+  gap: var(--space-lg);
+  align-items: center;
+}
+
+.schro-footer-link {
+  font-size: var(--text-sm);
+  color: var(--text-medium);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+}
+
+.schro-footer-link:hover {
+  color: var(--schro-orange);
+  background: rgba(230, 126, 34, 0.1);
+  transform: translateY(-1px);
+}
+
+.schro-footer-status {
+  font-size: var(--text-sm);
+  color: var(--text-medium);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  background: rgba(255, 248, 220, 0.8);
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(230, 126, 34, 0.2);
+}
+
+/* 태블릿 반응형 */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .schro-header-content {
+    padding: var(--space-md) var(--space-lg);
+  }
+  
+  .schro-header-logo {
+    width: 55px;
+    height: 55px;
+  }
+  
+  .schro-header-logo-img {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .schro-header-title {
+    font-size: var(--text-lg);
+  }
+  
+  .schro-header-nav {
+    gap: var(--space-sm);
+  }
+  
+  .schro-header-button {
+    padding: var(--space-sm) var(--space-md);
+    font-size: var(--text-sm);
+  }
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+  .schro-header-content {
+    padding: var(--space-sm) var(--space-md);
+  }
+  
+  .schro-header-logo {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .schro-header-logo-img {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .schro-header-title {
+    font-size: var(--text-lg);
+  }
+  
+  .schro-header-subtitle {
+    font-size: 10px;
+  }
+  
+  .schro-header-nav {
+    gap: var(--space-xs);
+  }
+  
+  .schro-header-button {
+    padding: var(--space-xs) var(--space-sm);
+    font-size: var(--text-xs);
+  }
+  
+  .schro-footer-content {
+    padding: var(--space-md);
+    flex-direction: column;
+    gap: var(--space-md);
+    text-align: center;
+  }
+  
+  .schro-footer-left,
+  .schro-footer-right {
+    justify-content: center;
+  }
+  
+  .schro-footer-right {
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+  
+  .schro-footer-links {
+    gap: var(--space-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .schro-header-brand-text {
+    display: none;
+  }
+  
+  .schro-header-button span {
+    display: none;
+  }
+  
+  .schro-header-button {
+    padding: var(--space-xs);
+    min-width: 40px;
+    justify-content: center;
+  }
+  
+  .schro-footer-status {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--space-xs);
+  }
+  
+  .schro-footer-links {
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+}
+
+/* 추가된 모던 효과 */
+.schro-header:hover {
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
+}
+
+.schro-footer:hover {
+  box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* 포커스 상태 개선 */
+.schro-header-button:focus-visible {
+  outline: 2px solid var(--schro-orange);
+  outline-offset: 2px;
+}
+
+.schro-footer-link:focus-visible {
+  outline: 2px solid var(--schro-orange);
+  outline-offset: 2px;
+}

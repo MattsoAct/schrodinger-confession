@@ -1,0 +1,404 @@
+/* CheckInput 페이지 (/check) 디자인 - 중학생 친화적 */
+
+.check-input-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 배경 파티클 효과 */
+.check-input-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 25% 25%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(236, 72, 153, 0.15) 0%, transparent 50%);
+  animation: float 8s ease-in-out infinite;
+  z-index: 1;
+}
+
+/* 편지 도착 히어로 섹션 */
+.letter-arrival-hero {
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.mailbox-animation {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+}
+
+.mailbox-icon {
+  font-size: 4rem;
+  display: inline-block;
+  animation: mailbox-bounce 3s ease-in-out infinite;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: linear-gradient(135deg, #EF4444, #DC2626);
+  color: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  animation: pulse-notification 2s ease-in-out infinite;
+}
+
+@keyframes mailbox-bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-15px);
+  }
+  60% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes pulse-notification {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+}
+
+.arrival-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  background: linear-gradient(135deg, #EC4899, #8B5CF6);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.arrival-subtitle {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  margin: 0;
+  word-break: keep-all;
+}
+
+/* 링크 입력 카드 */
+.link-input-card {
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.1) 0%, 
+    rgba(255, 255, 255, 0.05) 100%);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 500px;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-icon {
+  font-size: 1.8rem;
+  color: #8B5CF6;
+}
+
+.card-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+}
+
+/* 폼 스타일 */
+.link-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.input-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.input-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  margin: 0;
+}
+
+.input-container {
+  position: relative;
+}
+
+.link-input {
+  width: 100%;
+  padding: 1rem 3rem 1rem 1rem;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid rgba(139, 92, 246, 0.3);
+  border-radius: 12px;
+  color: white;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+  box-sizing: border-box;
+}
+
+.link-input:focus {
+  outline: none;
+  border-color: #8B5CF6;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.link-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.input-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  color: rgba(139, 92, 246, 0.6);
+  pointer-events: none;
+}
+
+.input-hint {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.4;
+  background: rgba(139, 92, 246, 0.1);
+  padding: 0.8rem;
+  border-radius: 8px;
+  border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+/* 확인 버튼 */
+.check-letter-button {
+  width: 100%;
+  padding: 1.2rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #8B5CF6, #EC4899);
+  border: none;
+  border-radius: 16px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+  min-height: 56px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.check-letter-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+}
+
+.check-letter-button:active {
+  transform: translateY(0);
+}
+
+.button-icon {
+  font-size: 1.3rem;
+}
+
+/* 도움말 섹션 */
+.help-section {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.help-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  padding: 1rem;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: 12px;
+}
+
+.help-icon {
+  font-size: 1.5rem;
+  color: #F59E0B;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.help-content h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: white;
+  margin: 0 0 0.3rem 0;
+}
+
+.help-content p {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* 모바일 최적화 */
+@media (max-width: 768px) {
+  .check-input-container {
+    padding: 1.5rem 1rem;
+  }
+  
+  .mailbox-icon {
+    font-size: 3rem;
+  }
+  
+  .arrival-title {
+    font-size: 1.8rem;
+  }
+  
+  .arrival-subtitle {
+    font-size: 1rem;
+  }
+  
+  .link-input-card {
+    padding: 1.5rem;
+  }
+  
+  .card-header {
+    gap: 0.6rem;
+    margin-bottom: 1.2rem;
+  }
+  
+  .card-icon {
+    font-size: 1.5rem;
+  }
+  
+  .card-title {
+    font-size: 1.1rem;
+  }
+  
+  .input-label {
+    font-size: 0.9rem;
+  }
+  
+  .link-input {
+    padding: 0.9rem 2.5rem 0.9rem 0.9rem;
+    font-size: 0.95rem;
+  }
+  
+  .input-hint {
+    font-size: 0.8rem;
+    padding: 0.6rem;
+  }
+  
+  .check-letter-button {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    min-height: 52px;
+  }
+  
+  .help-item {
+    padding: 0.8rem;
+  }
+  
+  .help-icon {
+    font-size: 1.3rem;
+  }
+}
+
+/* 매우 작은 화면 */
+@media (max-width: 375px) {
+  .arrival-title {
+    font-size: 1.6rem;
+  }
+  
+  .link-input-card {
+    padding: 1.2rem;
+  }
+  
+  .card-title {
+    font-size: 1rem;
+  }
+  
+  .link-input {
+    font-size: 0.9rem;
+  }
+  
+  .check-letter-button {
+    font-size: 0.95rem;
+    min-height: 48px;
+  }
+}
+
+/* 애니메이션 */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-10px) rotate(1deg); }
+  66% { transform: translateY(5px) rotate(-1deg); }
+}
+
+/* 접근성 개선 */
+@media (prefers-reduced-motion: reduce) {
+  .mailbox-animation,
+  .notification-badge,
+  .check-input-container::before {
+    animation: none;
+  }
+  
+  .check-letter-button:hover {
+    transform: none;
+  }
+}
+
+/* 포커스 가시성 향상 */
+.link-input:focus-visible {
+  outline: 2px solid #8B5CF6;
+  outline-offset: 2px;
+}
+
+.check-letter-button:focus-visible {
+  outline: 2px solid #EC4899;
+  outline-offset: 2px;
+}
