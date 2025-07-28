@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { TossPaymentService } from '../../infrastructure/api/TossPaymentService.js';
 import { supabase } from '../../infrastructure/storage/supabase.js';
 import { AlertModal } from '../components/Modal';
+import schroLetterImage from '../../assets/schro_letter.png';
 import '../styles/payment-schro.css';
 
 const Payment = () => {
@@ -16,7 +17,7 @@ const Payment = () => {
   // URL 파라미터나 state에서 결제 정보 받기
   const paymentInfo = location.state?.paymentInfo || {
     amount: 1000,
-    orderName: 'SchRo 프리미엄 편지',
+    orderName: '슈로의 비밀 편지',
     customerName: '고객',
   };
 
@@ -200,8 +201,8 @@ const Payment = () => {
     <div className="payment-container">
       <div className="payment-content">
         <div className="payment-header">
-          <img src="/src/assets/schro_letter.png" alt="SchRo" className="payment-schro-img" />
-          <h1 className="payment-title">SchRo 프리미엄 편지</h1>
+          <img src={schroLetterImage} alt="SchRo" className="payment-schro-img" />
+          <h1 className="payment-title">슈로의 비밀 편지</h1>
           <p className="payment-subtitle">특별한 편지로 마음을 전해보세요</p>
         </div>
 

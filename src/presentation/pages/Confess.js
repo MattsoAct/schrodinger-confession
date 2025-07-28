@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../../infrastructure/storage/supabase.js';
 import { AlertModal } from '../components/Modal';
@@ -11,6 +11,8 @@ import '../styles/confess-schro.css';
 
 function Confess() {
   const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [senderName, setSenderName] = useState('');
   const [receiverName, setReceiverName] = useState('');
   const [receiverContact, setReceiverContact] = useState('');
@@ -23,6 +25,54 @@ function Confess() {
   const [previewNameCheck, setPreviewNameCheck] = useState('');
   const [isPreviewVerified, setIsPreviewVerified] = useState(false);
   const [alertModal, setAlertModal] = useState({ isOpen: false, message: '' });
+
+  // 인증 상태 확인
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) {
+          navigate('/signin');
+          return;
+        }
+        setUser(user);
+      } catch (error) {
+        console.error('Auth check error:', error);
+        navigate('/signin');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    checkAuth();
+
+    // 인증 상태 변경 감지
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (!session?.user) {
+        navigate('/signin');
+      } else {
+        setUser(session.user);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [navigate]);
+
+  // 로딩 중이면 로딩 화면 표시
+  if (loading) {
+    return (
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '50vh',
+        fontSize: '18px',
+        color: '#666'
+      }}>
+        로딩 중...
+      </div>
+    );
+  }
 
   // 미리보기 모달 닫기
   const handleClosePreview = () => {
@@ -161,7 +211,7 @@ function Confess() {
               type="text"
               value={receiverContact}
               onChange={e => setReceiverContact(e.target.value)}
-              placeholder="예: 010-1234-5678 (문자) / 카카오톡ID (카톡)"
+              placeholder="예: 010-1234-5678"
               className="schro-confess-input"
               required
             />

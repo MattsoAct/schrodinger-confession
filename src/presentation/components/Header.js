@@ -55,7 +55,7 @@ function Header() {
             <img src={schroDesignImage} alt="슈로" className="schro-header-logo-img" />
           </div>
           <div className="schro-header-brand-text">
-            <h1 className="schro-header-title">슈로의 비밀편지함</h1>
+            <h1 className="schro-header-title">Schro의 양자편지함</h1>
             <span className="schro-header-subtitle">💌 특별한 편지 배달 서비스</span>
           </div>
         </Link>

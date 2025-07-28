@@ -16,7 +16,13 @@ function Footer() {
             </div>
             <div>
               <div className="schro-footer-text">슈로의 비밀편지함</div>
-              <div className="schro-footer-company">© {currentYear} (주)소액트</div>
+              <div className="schro-business-info">
+                <div>© {currentYear} (주)소액트</div>
+                <div>대표자 : 전성욱</div>
+                <div>개인정보관리책임자 : 전성욱</div>
+                <div>사업자등록번호 : 437-88-03018</div>
+                <div>주소 : 경기도 성남시 수정구 위례동로 135</div>
+              </div>
             </div>
           </Link>
         </div>

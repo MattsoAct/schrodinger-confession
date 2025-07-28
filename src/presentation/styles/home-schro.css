@@ -16,13 +16,13 @@
 
 /* Hero Section - 슈로 등장 */
 .schro-hero-section {
-  min-height: 80vh;
+  min-height: 70vh;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  padding: 2rem 0;
-  margin-bottom: 3rem;
+  padding: 1rem 0;
+  margin-bottom: 2rem;
 }
 
 .schro-hero-content {
@@ -539,8 +539,9 @@
 /* 모바일 반응형 */
 @media (max-width: 768px) {
   .schro-hero-section {
-    padding: 1.5rem 0;
-    margin-bottom: 2rem;
+    padding: 0.5rem 0;
+    margin-bottom: 1.5rem;
+    min-height: 60vh;
   }
   
   .schro-hero-character img {

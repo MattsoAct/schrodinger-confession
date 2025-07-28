@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { supabase } from '../../infrastructure/storage/supabase.js';
 import schroDesignImage from '../../assets/image_schro_standing.png';
 import '../styles/schro-mailcat-system.css';
 import '../styles/settings-schro.css';
 
 function Settings() {
+  const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -35,7 +37,7 @@ function Settings() {
       try {
         const { data: { user } } = await supabase.auth.getUser();
         if (!user) {
-          setError('로그인이 필요합니다.');
+          navigate('/signin');
           return;
         }
         
@@ -52,7 +54,16 @@ function Settings() {
     };
 
     fetchUser();
-  }, []);
+    
+    // 인증 상태 변경 감지
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (!session?.user) {
+        navigate('/signin');
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [navigate]);
 
   const handleNicknameChange = async (e) => {
     e.preventDefault();
