@@ -1,7 +1,7 @@
 // src/pages/Payment.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { PortOnePaymentService } from '../../infrastructure/api/PortOnePaymentService.js';
+import { PortOnePaymentServiceV2 } from '../../infrastructure/api/PortOnePaymentServiceV2.js';
 import { supabase } from '../../infrastructure/storage/supabase.js';
 import { AlertModal } from '../components/Modal';
 import schroLetterImage from '../../assets/schro_letter.png';
@@ -9,7 +9,7 @@ import '../styles/payment-schro.css';
 
 const Payment = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [paymentService] = useState(new PortOnePaymentService());
+  const [paymentService] = useState(new PortOnePaymentServiceV2());
   const [alertModal, setAlertModal] = useState({ isOpen: false, message: '', type: 'error' });
   const navigate = useNavigate();
   const location = useLocation();

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@portone/browser-sdk": "^0.0.24",
+    "@portone/server-sdk": "^0.15.0",
     "@supabase/supabase-js": "^2.50.4",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",

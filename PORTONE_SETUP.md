@@ -1,7 +1,7 @@
-# 포트원(PortOne) 결제 시스템 설정 가이드
+# 포트원(PortOne) V2 API 결제 시스템 설정 가이드
 
 ## 개요
-토스페이먼츠에서 포트원으로 결제 시스템을 마이그레이션했습니다. 포트원은 더 다양한 결제 수단과 편리한 관리 기능을 제공합니다.
+토스페이먼츠에서 포트원 V2 API로 결제 시스템을 마이그레이션했습니다. 포트원 V2는 더 강력한 API와 다양한 결제 수단을 제공합니다.
 
 ## 1. 포트원 계정 설정
 
@@ -20,7 +20,8 @@
 
 ### .env 파일 수정
 ```bash
-# 포트원 설정
+# 포트원 V2 API 설정
+REACT_APP_PORTONE_API_SECRET=your_api_secret_here
 REACT_APP_PORTONE_STORE_ID=your_store_id_here
 REACT_APP_PORTONE_CHANNEL_KEY=your_channel_key_here
 ```
@@ -28,13 +29,16 @@ REACT_APP_PORTONE_CHANNEL_KEY=your_channel_key_here
 ### Vercel 환경 변수 설정
 1. Vercel Dashboard → Project → Settings → Environment Variables
 2. 다음 변수들 추가:
+   - `REACT_APP_PORTONE_API_SECRET`
    - `REACT_APP_PORTONE_STORE_ID`
    - `REACT_APP_PORTONE_CHANNEL_KEY`
 
 ## 3. 구현된 기능
 
 ### 결제 서비스 클래스
-- `PortOnePaymentService.js`: 포트원 결제 로직 구현
+- `PortOnePaymentServiceV2.js`: 포트원 V2 API 결제 로직 구현
+- CDN을 통한 SDK 동적 로드
+- REST API를 통한 결제 상태 확인
 - 카드, 계좌이체, 카카오페이 등 다양한 결제 수단 지원
 
 ### 결제 플로우

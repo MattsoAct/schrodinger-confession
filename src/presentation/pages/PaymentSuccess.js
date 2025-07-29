@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { supabase } from '../../infrastructure/storage/supabase.js';
+import { PortOnePaymentServiceV2 } from '../../infrastructure/api/PortOnePaymentServiceV2.js';
 import '../styles/payment-result-schro.css';
 
 const PaymentSuccess = () => {
@@ -58,18 +59,11 @@ const PaymentSuccess = () => {
           return;
         }
 
-        // 토스페이먼츠 API를 통한 결제 검증 (실제 결제인 경우)
-        const response = await fetch('https://api.tosspayments.com/v1/payments/' + paymentKey, {
-          method: 'GET',
-          headers: {
-            'Authorization': `Basic ${btoa(process.env.REACT_APP_TOSS_SECRET_KEY + ':')}`,
-            'Content-Type': 'application/json',
-          },
-        });
+        // 포트원 V2 API를 통한 결제 검증 (실제 결제인 경우)
+        const paymentService = new PortOnePaymentServiceV2();
+        const paymentInfo = await paymentService.getPaymentInfo(paymentId);
 
-        const payment = await response.json();
-
-        if (payment.status === 'DONE') {
+        if (paymentInfo.status === 'PAID') {
           // 세션스토리지에서 편지 데이터 가져오기
           const letterDataString = sessionStorage.getItem('pendingLetter_' + orderId);
           let letterData = null;
@@ -87,11 +81,11 @@ const PaymentSuccess = () => {
             .from('payments')
             .insert([
               {
-                payment_key: paymentKey,
+                payment_key: paymentId,
                 order_id: orderId,
                 amount: parseInt(amount),
                 status: 'completed',
-                payment_method: payment.method,
+                payment_method: paymentInfo.payMethod || 'card',
                 created_at: new Date().toISOString(),
               }
             ])
