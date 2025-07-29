@@ -24,6 +24,11 @@ function Settings() {
 
   // 메시지 상태
   const [message, setMessage] = useState({ type: '', text: '', show: false });
+  
+  // 탈퇴 관련 상태
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleteConfirmText, setDeleteConfirmText] = useState('');
+  const [deleteLoading, setDeleteLoading] = useState(false);
 
   const showMessage = (type, text) => {
     setMessage({ type, text, show: true });
@@ -130,6 +135,32 @@ function Settings() {
       showMessage('error', `비밀번호 변경 중 오류가 발생했습니다: ${err.message}`);
     } finally {
       setPasswordLoading(false);
+    }
+  };
+
+  const handleAccountDelete = async () => {
+    if (deleteConfirmText !== '탈퇴합니다') {
+      showMessage('error', '"탈퇴합니다"를 정확히 입력해주세요.');
+      return;
+    }
+    
+    setDeleteLoading(true);
+    try {
+      // Supabase에서는 클라이언트에서 직접 계정 삭제가 불가능하므로
+      // 실제로는 계정 비활성화나 백엔드 API 호출이 필요합니다.
+      // 여기서는 로그아웃만 처리하고 메시지를 표시합니다.
+      
+      showMessage('error', '계정 탈퇴 기능은 고객센터를 통해 처리됩니다. 문의해주세요.');
+      setShowDeleteModal(false);
+      
+      // 실제 구현 시에는 다음과 같은 방식으로 처리:
+      // const { error } = await supabase.rpc('delete_user_account');
+      
+    } catch (err) {
+      showMessage('error', `탈퇴 처리 중 오류가 발생했습니다: ${err.message}`);
+    } finally {
+      setDeleteLoading(false);
+      setDeleteConfirmText('');
     }
   };
 
@@ -279,7 +310,88 @@ function Settings() {
             </button>
           </form>
         </div>
+
+        {/* 계정 삭제 */}
+        <div className="schro-settings-card schro-settings-card-danger">
+          <div className="schro-settings-card-header">
+            <div className="schro-settings-card-icon">
+              ⚠️
+            </div>
+            <h3 className="schro-settings-card-title">계정 탈퇴</h3>
+          </div>
+          <p className="schro-settings-card-description">
+            계정을 탈퇴하면 모든 데이터가 삭제되며 복구할 수 없습니다
+          </p>
+          
+          <button
+            onClick={() => setShowDeleteModal(true)}
+            className="schro-settings-delete-button"
+          >
+            🗑️ 계정 탈퇴하기
+          </button>
+        </div>
       </div>
+
+      {/* 탈퇴 확인 모달 */}
+      {showDeleteModal && (
+        <div className="schro-settings-modal-overlay">
+          <div className="schro-settings-modal">
+            <div className="schro-settings-modal-header">
+              <h3>정말로 탈퇴하시겠어요?</h3>
+              <button 
+                onClick={() => setShowDeleteModal(false)}
+                className="schro-settings-modal-close"
+              >
+                ✕
+              </button>
+            </div>
+            
+            <div className="schro-settings-modal-content">
+              <div className="schro-settings-modal-warning">
+                <div className="schro-settings-modal-warning-icon">⚠️</div>
+                <div className="schro-settings-modal-warning-text">
+                  <p><strong>주의: 이 작업은 되돌릴 수 없습니다!</strong></p>
+                  <ul>
+                    <li>모든 편지 데이터가 삭제됩니다</li>
+                    <li>계정 정보가 완전히 삭제됩니다</li>
+                    <li>결제 내역도 함께 삭제됩니다</li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div className="schro-settings-modal-confirm">
+                <label>
+                  정말로 탈퇴하려면 <strong>"탈퇴합니다"</strong>를 입력하세요:
+                </label>
+                <input
+                  type="text"
+                  value={deleteConfirmText}
+                  onChange={(e) => setDeleteConfirmText(e.target.value)}
+                  placeholder="탈퇴합니다"
+                  className="schro-settings-modal-input"
+                />
+              </div>
+            </div>
+            
+            <div className="schro-settings-modal-actions">
+              <button
+                onClick={() => setShowDeleteModal(false)}
+                className="schro-settings-modal-cancel"
+                disabled={deleteLoading}
+              >
+                취소
+              </button>
+              <button
+                onClick={handleAccountDelete}
+                className="schro-settings-modal-delete"
+                disabled={deleteLoading || deleteConfirmText !== '탈퇴합니다'}
+              >
+                {deleteLoading ? '처리 중...' : '계정 탈퇴'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

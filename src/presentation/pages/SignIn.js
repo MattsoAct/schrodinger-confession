@@ -125,6 +125,13 @@ function SignIn() {
               슈로와 함께 시작하기 🐱
             </Link>
           </div>
+
+          <div className="schro-auth-link" style={{ marginTop: 'var(--space-sm)' }}>
+            <span className="schro-auth-link-text">비밀번호를 잊으셨나요?</span>{' '}
+            <Link to="/forgot-password" className="schro-auth-link-button">
+              비밀번호 찾기 🔍
+            </Link>
+          </div>
         </div>
       </div>
     </div>

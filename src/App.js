@@ -14,6 +14,8 @@ const CheckInput = lazy(() => import('./presentation/pages/CheckInput'));
 const Message = lazy(() => import('./presentation/pages/Message'));
 const SignUp = lazy(() => import('./presentation/pages/SignUp'));
 const SignIn = lazy(() => import('./presentation/pages/SignIn'));
+const ForgotPassword = lazy(() => import('./presentation/pages/ForgotPassword'));
+const ResetPassword = lazy(() => import('./presentation/pages/ResetPassword'));
 const Settings = lazy(() => import('./presentation/pages/Settings'));
 const Terms = lazy(() => import('./presentation/pages/Terms'));
 const Privacy = lazy(() => import('./presentation/pages/Privacy'));
@@ -59,6 +61,8 @@ function App() {
               <Route path="/message/:id" element={<Message />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/signin" element={<SignIn />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/terms" element={<Terms />} />
               <Route path="/privacy" element={<Privacy />} />
