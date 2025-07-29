@@ -146,17 +146,45 @@ function Settings() {
     
     setDeleteLoading(true);
     try {
-      // Supabase에서는 클라이언트에서 직접 계정 삭제가 불가능하므로
-      // 실제로는 계정 비활성화나 백엔드 API 호출이 필요합니다.
-      // 여기서는 로그아웃만 처리하고 메시지를 표시합니다.
+      // 현재 사용자 세션 확인
+      const { data: { session } } = await supabase.auth.getSession();
       
-      showMessage('error', '계정 탈퇴 기능은 고객센터를 통해 처리됩니다. 문의해주세요.');
+      if (!session) {
+        showMessage('error', '로그인이 필요합니다.');
+        return;
+      }
+
+      // Edge Function 호출하여 계정 완전 삭제
+      const { data, error } = await supabase.functions.invoke('delete-user-account', {
+        headers: {
+          Authorization: `Bearer ${session.access_token}`,
+        },
+      });
+
+      if (error) {
+        console.error('계정 삭제 오류:', error);
+        showMessage('error', `계정 삭제에 실패했습니다: ${error.message}`);
+        return;
+      }
+
+      if (data?.error) {
+        showMessage('error', `계정 삭제에 실패했습니다: ${data.error}`);
+        return;
+      }
+
+      // 성공 시 로그아웃 처리
+      await supabase.auth.signOut();
+      
+      showMessage('success', '계정이 성공적으로 삭제되었습니다. 그동안 이용해주셔서 감사합니다.');
       setShowDeleteModal(false);
       
-      // 실제 구현 시에는 다음과 같은 방식으로 처리:
-      // const { error } = await supabase.rpc('delete_user_account');
+      // 메인 페이지로 이동
+      setTimeout(() => {
+        navigate('/');
+      }, 3000);
       
     } catch (err) {
+      console.error('계정 삭제 중 오류:', err);
       showMessage('error', `탈퇴 처리 중 오류가 발생했습니다: ${err.message}`);
     } finally {
       setDeleteLoading(false);
