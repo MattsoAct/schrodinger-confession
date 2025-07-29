@@ -2,14 +2,14 @@ import { createClient } from '@supabase/supabase-js';
 
 console.log('=== SUPABASE MODULE LOADING ===');
 
-// 환경 변수를 안전하게 가져오고 검증
-const supabaseUrl = (process.env.REACT_APP_SUPABASE_URL || 'https://orhvdkwmottijmviurdn.supabase.co').trim();
-const supabaseAnonKey = (process.env.REACT_APP_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9yaHZka3dtb3R0aWptdml1cmRuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIwNjY3OTAsImV4cCI6MjA2NzY0Mjc5MH0.MXXmhQzoWQNqs91aIlHF74TGCvg2IbBkENk9CiNhtQA').trim();
+// 직접 하드코딩으로 테스트 (환경 변수 문제 우회)
+const supabaseUrl = 'https://orhvdkwmottijmviurdn.supabase.co';
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9yaHZka3dtb3R0aWptdml1cmRuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIwNjY3OTAsImV4cCI6MjA2NzY0Mjc5MH0.MXXmhQzoWQNqs91aIlHF74TGCvg2IbBkENk9CiNhtQA';
 
-console.log('=== ENV VARS CHECK ===');
-console.log('All process.env keys:', Object.keys(process.env).filter(key => key.startsWith('REACT_APP')));
-console.log('REACT_APP_SUPABASE_URL:', process.env.REACT_APP_SUPABASE_URL);
-console.log('REACT_APP_SUPABASE_ANON_KEY exists:', !!process.env.REACT_APP_SUPABASE_ANON_KEY);
+console.log('=== HARDCODED VALUES TEST ===');
+console.log('Using hardcoded values to bypass env var issues');
+console.log('URL:', supabaseUrl);
+console.log('Key length:', supabaseAnonKey.length);
 
 console.log('Supabase Config Debug:', {
   url: supabaseUrl,
@@ -39,21 +39,11 @@ if (!supabaseUrl || !supabaseAnonKey ||
 let supabase;
 
 try {
-  supabase = createClient(supabaseUrl, supabaseAnonKey, {
-    auth: {
-      autoRefreshToken: true,
-      persistSession: true,
-      detectSessionInUrl: false
-    },
-    global: {
-      headers: {
-        'X-Client-Info': 'schrodinger-confession@1.0.0'
-      }
-    }
-  });
-  console.log('Supabase client created successfully');
+  console.log('Creating Supabase client with minimal config...');
+  supabase = createClient(supabaseUrl, supabaseAnonKey);
+  console.log('✅ Supabase client created successfully');
 } catch (error) {
-  console.error('Failed to create Supabase client:', error);
+  console.error('❌ Failed to create Supabase client:', error);
   throw error;
 }
 
