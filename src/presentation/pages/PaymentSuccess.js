@@ -10,13 +10,14 @@ const PaymentSuccess = () => {
   const [verificationResult, setVerificationResult] = useState(null);
   const navigate = useNavigate();
 
-  const paymentKey = searchParams.get('paymentKey');
+  // 포트원과 토스페이먼츠 모두 지원
+  const paymentId = searchParams.get('paymentId') || searchParams.get('paymentKey');
   const orderId = searchParams.get('orderId');
   const amount = searchParams.get('amount');
 
   useEffect(() => {
     const verifyPayment = async () => {
-      if (!paymentKey || !orderId || !amount) {
+      if (!paymentId || !orderId || !amount) {
         setVerificationResult({ success: false, message: '결제 정보가 올바르지 않습니다.' });
         setIsVerifying(false);
         return;
@@ -24,7 +25,7 @@ const PaymentSuccess = () => {
 
       try {
         // 개발자 테스트 케이스 처리
-        if (paymentKey.startsWith('dev_skip_')) {
+        if (paymentId.startsWith('dev_skip_')) {
           console.log('🧪 개발자 결제 스킵 모드 - 검증 생략');
           
           // 개발자 테스트에서는 편지가 이미 Payment.js에서 저장되었으므로

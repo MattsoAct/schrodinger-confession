@@ -1,7 +1,7 @@
 // src/pages/Payment.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { TossPaymentService } from '../../infrastructure/api/TossPaymentService.js';
+import { PortOnePaymentService } from '../../infrastructure/api/PortOnePaymentService.js';
 import { supabase } from '../../infrastructure/storage/supabase.js';
 import { AlertModal } from '../components/Modal';
 import schroLetterImage from '../../assets/schro_letter.png';
@@ -9,7 +9,7 @@ import '../styles/payment-schro.css';
 
 const Payment = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [paymentService] = useState(new TossPaymentService());
+  const [paymentService] = useState(new PortOnePaymentService());
   const [alertModal, setAlertModal] = useState({ isOpen: false, message: '', type: 'error' });
   const navigate = useNavigate();
   const location = useLocation();
@@ -26,7 +26,7 @@ const Payment = () => {
       try {
         await paymentService.initialize();
       } catch (error) {
-        console.error('토스페이먼츠 초기화 실패:', error);
+        console.error('포트원 초기화 실패:', error);
         setAlertModal({ isOpen: true, message: '결제 시스템 초기화에 실패했습니다.', type: 'error' });
       }
     };
@@ -41,14 +41,37 @@ const Payment = () => {
       // 이미 생성된 orderId 사용하거나 새로 생성
       const orderId = paymentInfo.orderId || `schro_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
       
+      // 세션스토리지에서 편지 데이터 가져와서 고객 정보 추출
+      const letterDataString = sessionStorage.getItem('pendingLetter_' + paymentInfo.orderId);
+      let customerInfo = { name: '고객', email: '', phone: '' };
+      
+      if (letterDataString) {
+        try {
+          const letterData = JSON.parse(letterDataString);
+          customerInfo = {
+            name: letterData.sender_name || '고객',
+            email: letterData.letter_type === 'email' ? letterData.receiver_contact : '',
+            phone: letterData.letter_type === 'sms' ? letterData.receiver_contact : '',
+          };
+        } catch (error) {
+          console.warn('편지 데이터 파싱 실패, 기본값 사용:', error);
+        }
+      }
+      
       const paymentData = {
         amount: paymentInfo.amount,
         orderId: orderId,
         orderName: paymentInfo.orderName,
-        customerName: paymentInfo.customerName,
+        customerName: customerInfo.name,
+        customerEmail: customerInfo.email,
+        customerPhone: customerInfo.phone,
       };
 
-      await paymentService.requestPayment(paymentData);
+      const result = await paymentService.requestPayment(paymentData);
+      
+      // 포트원은 성공 시 자동으로 successUrl로 리다이렉트됨
+      console.log('포트원 결제 요청 성공:', result);
+      
     } catch (error) {
       console.error('결제 요청 실패:', error);
       setAlertModal({ isOpen: true, message: `결제 요청에 실패했습니다: ${error.message || error}`, type: 'error' });
