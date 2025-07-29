@@ -44,18 +44,22 @@ function SignUp() {
     }
     
     setLoading(true);
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: { nickname }
-      }
-    });
     
-    if (error) {
-      setMessage(`회원가입에 실패했어요: ${error.message}`);
-      setMessageType('error');
-    } else {
+    try {
+      const { error } = await supabase.auth.signUp({
+        email: email.trim(),
+        password,
+        options: {
+          data: { 
+            nickname: nickname.trim() || '익명 사용자'
+          }
+        }
+      });
+      
+      if (error) {
+        throw error;
+      }
+      
       setMessage('회원가입이 완료되었어요! 이메일을 확인해주세요 📧✨');
       setMessageType('success');
       setEmail('');
@@ -63,8 +67,14 @@ function SignUp() {
       setPassword('');
       setPasswordCheck('');
       setTimeout(() => navigate('/signin'), 3000);
+      
+    } catch (err) {
+      console.error('SignUp Error:', err);
+      setMessage(`회원가입에 실패했어요: ${err.message || '알 수 없는 오류가 발생했어요'}`);
+      setMessageType('error');
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
