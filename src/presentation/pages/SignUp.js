@@ -14,6 +14,7 @@ console.log('Supabase client imported:', !!supabase);
 function SignUp() {
   const [email, setEmail] = useState('');
   const [nickname, setNickname] = useState('');
+  const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [passwordCheck, setPasswordCheck] = useState('');
   const [message, setMessage] = useState('');
@@ -58,6 +59,7 @@ function SignUp() {
       const { error, data } = await supabase.auth.signUp({
         email: email.trim(),
         password,
+        phone: phone.trim(),
         options: {
           data: { 
             nickname: nickname.trim() || '익명 사용자'
@@ -75,6 +77,7 @@ function SignUp() {
       setMessageType('success');
       setEmail('');
       setNickname('');
+      setPhone('');
       setPassword('');
       setPasswordCheck('');
       setTimeout(() => navigate('/signin'), 3000);
@@ -130,6 +133,21 @@ function SignUp() {
                 placeholder="슈로의 친구"
                 value={nickname}
                 onChange={e => setNickname(e.target.value)}
+                required
+                className="schro-form-input"
+              />
+            </div>
+
+            <div className="schro-form-group">
+              <label className="schro-form-label">
+                📱
+                전화번호
+              </label>
+              <input
+                type="tel"
+                placeholder="010-1234-5678"
+                value={phone}
+                onChange={e => setPhone(e.target.value)}
                 required
                 className="schro-form-input"
               />
