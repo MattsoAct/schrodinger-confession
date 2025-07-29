@@ -46,7 +46,13 @@ function SignUp() {
     setLoading(true);
     
     try {
-      const { error } = await supabase.auth.signUp({
+      console.log('Starting signup process with:', {
+        email: email.trim(),
+        hasPassword: !!password,
+        nickname: nickname.trim() || '익명 사용자'
+      });
+      
+      const { error, data } = await supabase.auth.signUp({
         email: email.trim(),
         password,
         options: {
@@ -55,6 +61,8 @@ function SignUp() {
           }
         }
       });
+      
+      console.log('Signup response:', { error, data });
       
       if (error) {
         throw error;
