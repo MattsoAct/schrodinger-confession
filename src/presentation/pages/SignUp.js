@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { supabase } from '../../infrastructure/storage/supabase.js';
 import { useNavigate, Link } from 'react-router-dom';
+
+console.log('=== SIGNUP PAGE LOADING ===');
+console.log('Supabase client imported:', !!supabase);
 import schroDesignImage from '../../assets/image_schro_standing.png';
 import iconLock from '../../assets/icon_lock.png';
 import iconLetter from '../../assets/icon_letter.png';
