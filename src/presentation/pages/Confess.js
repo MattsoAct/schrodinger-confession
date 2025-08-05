@@ -92,6 +92,21 @@ function Confess() {
     }
   };
 
+  // 사용법 미리보기 - 입력된 데이터로 How It Works 페이지 열기
+  const handlePreviewFlow = () => {
+    // URL 파라미터로 데이터 전달
+    const params = new URLSearchParams({
+      senderName: senderName.trim(),
+      receiverName: receiverName.trim(),
+      message: message.trim(),
+      hint: hint.trim(),
+      preview: 'true'
+    });
+    
+    // 새 탭에서 How It Works 페이지 열기
+    window.open(`/how-it-works?${params.toString()}`, '_blank');
+  };
+
   // 실제 전송(저장) 함수
   const handleSend = async () => {
     // 카카오톡은 아직 준비중이므로 알림 표시
@@ -327,10 +342,22 @@ function Confess() {
             </div>
           </div>
 
-          <button type="submit" className="schro-confess-submit">
-            <span style={{ fontSize: 'var(--text-xl)' }}>👀</span>
-            편지 미리보기
-          </button>
+          <div className="schro-confess-button-group">
+            <button type="submit" className="schro-confess-submit">
+              <span style={{ fontSize: 'var(--text-xl)' }}>👀</span>
+              편지 미리보기
+            </button>
+            
+            <button 
+              type="button" 
+              className="schro-confess-preview-flow"
+              onClick={handlePreviewFlow}
+              disabled={!senderName || !receiverName || !message || !hint}
+            >
+              <span style={{ fontSize: 'var(--text-xl)' }}>📖</span>
+              사용법 미리보기
+            </button>
+          </div>
         </form>
 
         {/* Preview Modal */}

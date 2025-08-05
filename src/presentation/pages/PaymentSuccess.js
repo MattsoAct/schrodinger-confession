@@ -50,7 +50,7 @@ const PaymentSuccess = () => {
 
           // 개발자 테스트 성공 시 편지 배달 페이지로 리다이렉트
           const deliveryParams = new URLSearchParams({
-            paymentKey: paymentKey,
+            paymentId: paymentId,
             orderId: orderId,
             amount: amount.toString()
           });
@@ -76,16 +76,19 @@ const PaymentSuccess = () => {
             }
           }
 
-          // Supabase에 결제 정보와 편지 저장
+          // Supabase에 결제 정보와 편지 저장 (포트원 V2 스키마)
           const { data: paymentData, error: paymentError } = await supabase
             .from('payments')
             .insert([
               {
-                payment_key: paymentId,
+                payment_id: paymentId,
                 order_id: orderId,
                 amount: parseInt(amount),
-                status: 'completed',
+                status: 'paid',
                 payment_method: paymentInfo.payMethod || 'card',
+                payment_gateway: 'portone_v2',
+                store_id: process.env.REACT_APP_PORTONE_STORE_ID,
+                channel_key: process.env.REACT_APP_PORTONE_CHANNEL_KEY,
                 created_at: new Date().toISOString(),
               }
             ])
@@ -179,7 +182,7 @@ const PaymentSuccess = () => {
 
                 // 실제 결제 성공 시에도 편지 배달 페이지로 리다이렉트
                 const deliveryParams = new URLSearchParams({
-                  paymentKey: paymentKey,
+                  paymentId: paymentId,
                   orderId: orderId,
                   amount: amount.toString()
                 });
@@ -189,7 +192,7 @@ const PaymentSuccess = () => {
             } else {
               // 편지 데이터가 없어도 편지 배달 페이지로 리다이렉트
               const deliveryParams = new URLSearchParams({
-                paymentKey: paymentKey,
+                paymentId: paymentId,
                 orderId: orderId,
                 amount: amount.toString()
               });
@@ -215,7 +218,7 @@ const PaymentSuccess = () => {
     };
 
     verifyPayment();
-  }, [paymentKey, orderId, amount]);
+  }, [paymentId, orderId, amount]);
 
   if (isVerifying) {
     return (

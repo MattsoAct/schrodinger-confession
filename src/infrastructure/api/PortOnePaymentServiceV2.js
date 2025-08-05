@@ -6,6 +6,7 @@ export class PortOnePaymentServiceV2 {
     this.storeId = process.env.REACT_APP_PORTONE_STORE_ID;
     this.channelKey = process.env.REACT_APP_PORTONE_CHANNEL_KEY;
     this.apiUrl = 'https://api.portone.io/v2';
+    this.isTestMode = process.env.REACT_APP_PAYMENT_TEST_MODE === 'true';
   }
 
   async initialize() {
@@ -42,6 +43,13 @@ export class PortOnePaymentServiceV2 {
     });
   }
 
+  // 테스트용 결제 ID 생성 (결제사 승인용)
+  generateTestPaymentId() {
+    const timestamp = Date.now();
+    const random = Math.random().toString(36).substring(2, 8);
+    return `test_payment_${timestamp}_${random}`;
+  }
+
   async createPayment({ amount, orderName, orderId }) {
     const payment = new Payment({
       orderId,
@@ -53,6 +61,34 @@ export class PortOnePaymentServiceV2 {
   }
 
   async requestPayment(paymentData) {
+    // 테스트 모드일 경우 실제 결제 대신 가상 성공 응답 반환
+    if (this.isTestMode) {
+      console.log('🧪 테스트 모드: 실제 결제를 건너뛰고 가상 성공 응답을 반환합니다.');
+      
+      const testPaymentId = this.generateTestPaymentId();
+      
+      // 실제 결제 완료와 동일한 형태로 응답 생성
+      return {
+        code: null, // 성공 시 null
+        message: null,
+        paymentId: testPaymentId,
+        transactionType: 'PAYMENT',
+        txId: `test_tx_${Date.now()}`,
+        status: 'PAID', // 결제 완료 상태
+        paidAt: new Date().toISOString(),
+        orderName: paymentData.orderName || '슈로의 프리미엄 편지',
+        amount: {
+          total: paymentData.amount,
+          currency: 'KRW'
+        },
+        customer: {
+          fullName: paymentData.customerName || '테스트 고객',
+          phoneNumber: paymentData.customerPhone,
+          email: paymentData.customerEmail,
+        }
+      };
+    }
+
     await this.initialize();
     
     if (!window.PortOne) {
@@ -96,6 +132,28 @@ export class PortOnePaymentServiceV2 {
   }
 
   async getPaymentInfo(paymentId) {
+    // 테스트 모드일 경우 가상 결제 정보 반환
+    if (this.isTestMode && paymentId.startsWith('test_payment_')) {
+      console.log('🧪 테스트 모드: 가상 결제 정보를 반환합니다.');
+      
+      return {
+        paymentId: paymentId,
+        status: 'PAID',
+        orderName: '슈로의 프리미엄 편지',
+        amount: {
+          total: 1000,
+          currency: 'KRW'
+        },
+        paidAt: new Date().toISOString(),
+        customer: {
+          fullName: '테스트 고객',
+          email: 'test@example.com',
+          phoneNumber: '010-0000-0000'
+        },
+        txId: `test_tx_${Date.now()}`
+      };
+    }
+
     try {
       const response = await fetch(`${this.apiUrl}/payments/${paymentId}`, {
         method: 'GET',

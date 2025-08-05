@@ -8,7 +8,8 @@ import {
   FaUser,
   FaEnvelope,
   FaSearch,
-  FaHeart
+  FaHeart,
+  FaQuestionCircle
 } from 'react-icons/fa';
 import schroDesignImage from '../../assets/image_schro_standing.png';
 import '../styles/schro-mailcat-system.css';
@@ -64,6 +65,10 @@ function Header() {
           <Link to="/about" className="schro-header-button schro-header-button-about schro-button">
             <FaHeart />
             <span>슈로는</span>
+          </Link>
+          <Link to="/how-it-works" className="schro-header-button schro-header-button-howitworks">
+            <FaQuestionCircle />
+            <span>이용방법</span>
           </Link>
           <Link to="/confess" className="schro-header-button schro-header-button-letter">
             <FaEnvelope />

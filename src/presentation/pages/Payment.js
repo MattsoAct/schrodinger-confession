@@ -14,6 +14,9 @@ const Payment = () => {
   const navigate = useNavigate();
   const location = useLocation();
   
+  // 테스트 모드 상태 확인
+  const isTestMode = process.env.REACT_APP_PAYMENT_TEST_MODE === 'true';
+  
   // URL 파라미터나 state에서 결제 정보 받기
   const paymentInfo = location.state?.paymentInfo || {
     amount: 1000,
@@ -227,6 +230,17 @@ const Payment = () => {
           <img src={schroLetterImage} alt="SchRo" className="payment-schro-img" />
           <h1 className="payment-title">슈로의 비밀 편지</h1>
           <p className="payment-subtitle">특별한 편지로 마음을 전해보세요</p>
+          
+          {/* 테스트 모드 안내 메시지 */}
+          {isTestMode && (
+            <div className="test-mode-notice">
+              <div className="test-mode-badge">🧪 테스트 모드</div>
+              <p className="test-mode-text">
+                결제사 승인을 위한 테스트 ID로 작동 중입니다.<br/>
+                실제 결제가 이루어지지 않으며, 가상의 결제 성공 처리됩니다.
+              </p>
+            </div>
+          )}
         </div>
 
         <div className="payment-details">

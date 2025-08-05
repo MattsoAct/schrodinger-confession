@@ -24,6 +24,7 @@ const PaymentSuccess = lazy(() => import('./presentation/pages/PaymentSuccess'))
 const PaymentFail = lazy(() => import('./presentation/pages/PaymentFail'));
 const LetterDelivery = lazy(() => import('./presentation/pages/LetterDelivery'));
 const Contact = lazy(() => import('./presentation/pages/Contact'));
+const HowItWorks = lazy(() => import('./presentation/pages/HowItWorks'));
 
 // Loading component for lazy routes
 const LoadingSpinner = () => (
@@ -55,6 +56,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
+              <Route path="/how-it-works" element={<HowItWorks />} />
               <Route path="/confess" element={<Confess />} />
               <Route path="/check" element={<CheckInput />} />
               <Route path="/check/:id" element={<Check />} />
