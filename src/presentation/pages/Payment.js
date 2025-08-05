@@ -26,16 +26,7 @@ const Payment = () => {
   };
 
   useEffect(() => {
-    const initPayment = async () => {
-      try {
-        await paymentService.initialize();
-      } catch (error) {
-        console.error('포트원 초기화 실패:', error);
-        setAlertModal({ isOpen: true, message: '결제 시스템 초기화에 실패했습니다.', type: 'error' });
-      }
-    };
-
-    // 무료 이메일 확인
+    // 무료 이메일 확인을 먼저 수행
     const checkFreeEmail = () => {
       const letterDataString = sessionStorage.getItem('pendingLetter_' + paymentInfo.orderId);
       if (letterDataString) {
@@ -46,15 +37,32 @@ const Payment = () => {
           if (letterData.letter_type === 'email' && receiverEmail && paymentService.isFreeEmail(receiverEmail)) {
             setIsFreeEmail(true);
             setFreeEmailAddress(receiverEmail);
+            return true; // 무료 이메일임을 반환
           }
         } catch (error) {
           console.warn('편지 데이터 파싱 실패:', error);
         }
       }
+      return false; // 무료 이메일이 아님
+    };
+
+    const initPayment = async () => {
+      // 무료 이메일인 경우 포트원 초기화 건너뛰기
+      if (checkFreeEmail()) {
+        console.log('💌 무료 이메일 감지: 포트원 초기화를 건너뜁니다.');
+        return;
+      }
+
+      // 일반 결제인 경우에만 포트원 초기화
+      try {
+        await paymentService.initialize();
+      } catch (error) {
+        console.error('포트원 초기화 실패:', error);
+        setAlertModal({ isOpen: true, message: '결제 시스템 초기화에 실패했습니다.', type: 'error' });
+      }
     };
 
     initPayment();
-    checkFreeEmail();
   }, [paymentService, paymentInfo.orderId]);
 
   const handlePayment = async (method = '카드') => {
