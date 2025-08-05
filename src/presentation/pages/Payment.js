@@ -26,66 +26,45 @@ const Payment = () => {
   };
 
   useEffect(() => {
-    // 무료 이메일 확인을 먼저 수행
-    const checkFreeEmail = () => {
-      console.log('무료 이메일 확인 시작...');
-      console.log('paymentInfo.orderId:', paymentInfo.orderId);
+    // 현재 로그인된 사용자 확인
+    const checkFreeUser = async () => {
+      console.log('무료 사용자 확인 시작...');
       
-      // 모든 세션스토리지 키를 확인해서 pendingLetter_로 시작하는 것 찾기
-      let letterData = null;
-      
-      if (paymentInfo.orderId) {
-        const letterDataString = sessionStorage.getItem('pendingLetter_' + paymentInfo.orderId);
-        if (letterDataString) {
-          try {
-            letterData = JSON.parse(letterDataString);
-            console.log('편지 데이터 발견:', letterData);
-          } catch (error) {
-            console.warn('편지 데이터 파싱 실패:', error);
-          }
-        }
-      }
-      
-      // orderId로 찾지 못했다면 모든 pendingLetter_ 키를 확인
-      if (!letterData) {
-        console.log('orderId로 찾지 못함, 모든 세션스토리지 키 확인...');
-        for (let i = 0; i < sessionStorage.length; i++) {
-          const key = sessionStorage.key(i);
-          if (key && key.startsWith('pendingLetter_')) {
-            try {
-              const dataString = sessionStorage.getItem(key);
-              letterData = JSON.parse(dataString);
-              console.log('발견된 편지 데이터:', letterData);
-              break;
-            } catch (error) {
-              console.warn('데이터 파싱 실패:', key, error);
-            }
-          }
-        }
-      }
-      
-      if (letterData) {
-        const senderEmail = letterData.sender_email; // 보내는 사람 이메일 확인
-        console.log('보내는 사람 이메일:', senderEmail);
-        console.log('편지 유형:', letterData.letter_type);
+      try {
+        // Supabase에서 현재 로그인된 사용자 정보 가져오기
+        const { data: { user }, error } = await supabase.auth.getUser();
         
-        // 보내는 사람이 무료 이메일 사용자인지 확인
-        if (senderEmail && paymentService.isFreeEmail(senderEmail)) {
-          console.log('💌 무료 사용자 감지!');
-          setIsFreeEmail(true);
-          setFreeEmailAddress(senderEmail);
-          return true; // 무료 사용자임을 반환
+        if (error) {
+          console.error('사용자 정보 가져오기 실패:', error);
+          return false;
         }
+        
+        if (user && user.email) {
+          console.log('현재 로그인된 사용자 이메일:', user.email);
+          
+          // 로그인된 사용자가 무료 계정인지 확인
+          if (paymentService.isFreeEmail(user.email)) {
+            console.log('💌 무료 계정 사용자 감지!');
+            setIsFreeEmail(true);
+            setFreeEmailAddress(user.email);
+            return true; // 무료 사용자임을 반환
+          }
+        } else {
+          console.log('로그인되지 않은 사용자');
+        }
+        
+        console.log('무료 계정이 아님');
+        return false;
+      } catch (error) {
+        console.error('사용자 확인 중 오류:', error);
+        return false;
       }
-      
-      console.log('무료 이메일이 아님');
-      return false; // 무료 이메일이 아님
     };
 
     const initPayment = async () => {
-      // 무료 이메일인 경우 포트원 초기화 건너뛰기
-      if (checkFreeEmail()) {
-        console.log('💌 무료 이메일 감지: 포트원 초기화를 건너뜁니다.');
+      // 무료 계정 사용자인 경우 포트원 초기화 건너뛰기
+      if (await checkFreeUser()) {
+        console.log('💌 무료 계정 감지: 포트원 초기화를 건너뜁니다.');
         return;
       }
 
@@ -297,13 +276,13 @@ const Payment = () => {
           <h1 className="payment-title">슈로의 비밀 편지</h1>
           <p className="payment-subtitle">특별한 편지로 마음을 전해보세요</p>
           
-          {/* 무료 사용자 안내 메시지 */}
+          {/* 무료 계정 안내 메시지 */}
           {isFreeEmail && (
             <div className="test-mode-notice">
-              <div className="test-mode-badge">💌 무료 사용자</div>
+              <div className="test-mode-badge">🎉 무료 계정</div>
               <p className="test-mode-text">
                 "<strong>{freeEmailAddress}</strong>" 계정으로 로그인하셨군요!<br/>
-                특별 혜택으로 <strong>무료</strong>로 편지를 전송해드립니다.
+                특별 계정 혜택으로 <strong>무료</strong>로 편지를 전송해드립니다.
               </p>
             </div>
           )}
