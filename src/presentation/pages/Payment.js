@@ -65,16 +65,16 @@ const Payment = () => {
       }
       
       if (letterData) {
-        const receiverEmail = letterData.receiver_contact;
-        console.log('받는 사람 이메일:', receiverEmail);
+        const senderEmail = letterData.sender_email; // 보내는 사람 이메일 확인
+        console.log('보내는 사람 이메일:', senderEmail);
         console.log('편지 유형:', letterData.letter_type);
         
-        // 이메일 유형이고 무료 이메일인지 확인
-        if (letterData.letter_type === 'email' && receiverEmail && paymentService.isFreeEmail(receiverEmail)) {
-          console.log('💌 무료 이메일 감지!');
+        // 보내는 사람이 무료 이메일 사용자인지 확인
+        if (senderEmail && paymentService.isFreeEmail(senderEmail)) {
+          console.log('💌 무료 사용자 감지!');
           setIsFreeEmail(true);
-          setFreeEmailAddress(receiverEmail);
-          return true; // 무료 이메일임을 반환
+          setFreeEmailAddress(senderEmail);
+          return true; // 무료 사용자임을 반환
         }
       }
       
@@ -297,12 +297,12 @@ const Payment = () => {
           <h1 className="payment-title">슈로의 비밀 편지</h1>
           <p className="payment-subtitle">특별한 편지로 마음을 전해보세요</p>
           
-          {/* 무료 이메일 안내 메시지 */}
+          {/* 무료 사용자 안내 메시지 */}
           {isFreeEmail && (
             <div className="test-mode-notice">
-              <div className="test-mode-badge">💌 무료 서비스</div>
+              <div className="test-mode-badge">💌 무료 사용자</div>
               <p className="test-mode-text">
-                "<strong>{freeEmailAddress}</strong>"로 편지를 보내시는군요!<br/>
+                "<strong>{freeEmailAddress}</strong>" 계정으로 로그인하셨군요!<br/>
                 특별 혜택으로 <strong>무료</strong>로 편지를 전송해드립니다.
               </p>
             </div>
