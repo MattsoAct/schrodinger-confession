@@ -291,7 +291,21 @@ const Payment = () => {
         <div className="payment-details">
           <div className="payment-item">
             <span className="payment-item-name">{paymentInfo.orderName}</span>
-            <span className="payment-item-price">{paymentInfo.amount.toLocaleString()}원</span>
+            <span className="payment-item-price" style={{
+              textDecoration: isFreeEmail ? 'line-through' : 'none',
+              opacity: isFreeEmail ? 0.5 : 1
+            }}>
+              {paymentInfo.amount.toLocaleString()}원
+            </span>
+            {isFreeEmail && (
+              <span className="payment-item-free" style={{
+                color: '#4caf50',
+                fontWeight: 700,
+                fontSize: '1.2em'
+              }}>
+                무료!
+              </span>
+            )}
           </div>
           
           <div className="payment-features">
@@ -307,41 +321,71 @@ const Payment = () => {
               <span className="feature-icon">🔒</span>
               <span>보안 강화된 편지 전달</span>
             </div>
+            {isFreeEmail && (
+              <div className="feature-item">
+                <span className="feature-icon">🎉</span>
+                <span>무료 계정 특별 혜택</span>
+              </div>
+            )}
           </div>
 
           <div className="payment-total">
             <span className="total-label">총 결제금액</span>
-            <span className="total-amount">{paymentInfo.amount.toLocaleString()}원</span>
+            <span className="total-amount" style={{
+              color: isFreeEmail ? '#4caf50' : 'inherit'
+            }}>
+              {isFreeEmail ? '0' : paymentInfo.amount.toLocaleString()}원
+            </span>
           </div>
         </div>
 
         <div className="payment-methods">
-          <button 
-            className="payment-method-btn card-btn"
-            onClick={() => handlePayment('카드')}
-            disabled={isLoading}
-          >
-            {isLoading ? '결제 진행 중...' : '카드로 결제하기'}
-          </button>
-          
-          <button 
-            className="payment-method-btn transfer-btn"
-            onClick={() => handlePayment('계좌이체')}
-            disabled={isLoading}
-          >
-            계좌이체로 결제하기
-          </button>
+          {/* 무료 계정 사용자용 무료 전송 버튼 */}
+          {isFreeEmail ? (
+            <button 
+              className="payment-method-btn free-account-btn"
+              onClick={() => handlePayment('무료')}
+              disabled={isLoading}
+              style={{
+                background: 'linear-gradient(135deg, #4caf50, #8bc34a)',
+                border: '2px solid #4caf50',
+                boxShadow: '0 4px 15px rgba(76, 175, 80, 0.3)',
+                transform: isLoading ? 'scale(0.98)' : 'scale(1)',
+                transition: 'all 0.3s ease'
+              }}
+            >
+              {isLoading ? '🎉 무료 전송 중...' : '🎉 무료로 편지 보내기'}
+            </button>
+          ) : (
+            <>
+              <button 
+                className="payment-method-btn card-btn"
+                onClick={() => handlePayment('카드')}
+                disabled={isLoading}
+              >
+                {isLoading ? '결제 진행 중...' : '카드로 결제하기'}
+              </button>
+              
+              <button 
+                className="payment-method-btn transfer-btn"
+                onClick={() => handlePayment('계좌이체')}
+                disabled={isLoading}
+              >
+                계좌이체로 결제하기
+              </button>
 
-          <button 
-            className="payment-method-btn kakao-btn"
-            onClick={() => handlePayment('카카오페이')}
-            disabled={isLoading}
-          >
-            카카오페이로 결제하기
-          </button>
+              <button 
+                className="payment-method-btn kakao-btn"
+                onClick={() => handlePayment('카카오페이')}
+                disabled={isLoading}
+              >
+                카카오페이로 결제하기
+              </button>
+            </>
+          )}
 
           {/* 개발자 전용: localhost에서만 보이는 결제 스킵 버튼 */}
-          {window.location.hostname === 'localhost' && (
+          {window.location.hostname === 'localhost' && !isFreeEmail && (
             <button 
               className="payment-method-btn dev-skip-btn"
               onClick={handleSkipPayment}
