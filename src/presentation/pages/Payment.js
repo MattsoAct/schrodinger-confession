@@ -14,8 +14,9 @@ const Payment = () => {
   const navigate = useNavigate();
   const location = useLocation();
   
-  // 테스트 모드 상태 확인
-  const isTestMode = process.env.REACT_APP_PAYMENT_TEST_MODE === 'true';
+  // 무료 이메일 확인을 위한 상태
+  const [isFreeEmail, setIsFreeEmail] = useState(false);
+  const [freeEmailAddress, setFreeEmailAddress] = useState('');
   
   // URL 파라미터나 state에서 결제 정보 받기
   const paymentInfo = location.state?.paymentInfo || {
@@ -34,8 +35,27 @@ const Payment = () => {
       }
     };
 
+    // 무료 이메일 확인
+    const checkFreeEmail = () => {
+      const letterDataString = sessionStorage.getItem('pendingLetter_' + paymentInfo.orderId);
+      if (letterDataString) {
+        try {
+          const letterData = JSON.parse(letterDataString);
+          const receiverEmail = letterData.receiver_contact;
+          // 이메일 유형이고 무료 이메일인지 확인
+          if (letterData.letter_type === 'email' && receiverEmail && paymentService.isFreeEmail(receiverEmail)) {
+            setIsFreeEmail(true);
+            setFreeEmailAddress(receiverEmail);
+          }
+        } catch (error) {
+          console.warn('편지 데이터 파싱 실패:', error);
+        }
+      }
+    };
+
     initPayment();
-  }, [paymentService]);
+    checkFreeEmail();
+  }, [paymentService, paymentInfo.orderId]);
 
   const handlePayment = async (method = '카드') => {
     setIsLoading(true);
@@ -231,13 +251,13 @@ const Payment = () => {
           <h1 className="payment-title">슈로의 비밀 편지</h1>
           <p className="payment-subtitle">특별한 편지로 마음을 전해보세요</p>
           
-          {/* 테스트 모드 안내 메시지 */}
-          {isTestMode && (
+          {/* 무료 이메일 안내 메시지 */}
+          {isFreeEmail && (
             <div className="test-mode-notice">
-              <div className="test-mode-badge">🧪 테스트 모드</div>
+              <div className="test-mode-badge">💌 무료 서비스</div>
               <p className="test-mode-text">
-                결제사 승인을 위한 테스트 ID로 작동 중입니다.<br/>
-                실제 결제가 이루어지지 않으며, 가상의 결제 성공 처리됩니다.
+                "<strong>{freeEmailAddress}</strong>"로 편지를 보내시는군요!<br/>
+                특별 혜택으로 <strong>무료</strong>로 편지를 전송해드립니다.
               </p>
             </div>
           )}

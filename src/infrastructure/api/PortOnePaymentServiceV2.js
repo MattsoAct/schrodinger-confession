@@ -6,7 +6,14 @@ export class PortOnePaymentServiceV2 {
     this.storeId = process.env.REACT_APP_PORTONE_STORE_ID;
     this.channelKey = process.env.REACT_APP_PORTONE_CHANNEL_KEY;
     this.apiUrl = 'https://api.portone.io/v2';
-    this.isTestMode = process.env.REACT_APP_PAYMENT_TEST_MODE === 'true';
+    // 무료 사용 가능한 특별 이메일 주소
+    this.freeEmails = ['so.act.kr@gmail.com'];
+  }
+  
+  // 무료 사용 가능한 이메일인지 확인하는 함수
+  isFreeEmail(email) {
+    if (!email) return false;
+    return this.freeEmails.includes(email.toLowerCase());
   }
 
   async initialize() {
@@ -61,9 +68,9 @@ export class PortOnePaymentServiceV2 {
   }
 
   async requestPayment(paymentData) {
-    // 테스트 모드일 경우 실제 결제 대신 가상 성공 응답 반환
-    if (this.isTestMode) {
-      console.log('🧪 테스트 모드: 실제 결제를 건너뛰고 가상 성공 응답을 반환합니다.');
+    // 무료 이메일 주소일 경우 실제 결제 대신 가상 성공 응답 반환
+    if (this.isFreeEmail(paymentData.customerEmail)) {
+      console.log(`💌 무료 이메일 "${paymentData.customerEmail}" 감지: 실제 결제를 건너뛰고 가상 성공 응답을 반환합니다.`);
       
       const testPaymentId = this.generateTestPaymentId();
       
@@ -73,7 +80,7 @@ export class PortOnePaymentServiceV2 {
         message: null,
         paymentId: testPaymentId,
         transactionType: 'PAYMENT',
-        txId: `test_tx_${Date.now()}`,
+        txId: `free_tx_${Date.now()}`,
         status: 'PAID', // 결제 완료 상태
         paidAt: new Date().toISOString(),
         orderName: paymentData.orderName || '슈로의 프리미엄 편지',
@@ -82,7 +89,7 @@ export class PortOnePaymentServiceV2 {
           currency: 'KRW'
         },
         customer: {
-          fullName: paymentData.customerName || '테스트 고객',
+          fullName: paymentData.customerName || '무료 사용자',
           phoneNumber: paymentData.customerPhone,
           email: paymentData.customerEmail,
         }
@@ -132,25 +139,25 @@ export class PortOnePaymentServiceV2 {
   }
 
   async getPaymentInfo(paymentId) {
-    // 테스트 모드일 경우 가상 결제 정보 반환
-    if (this.isTestMode && paymentId.startsWith('test_payment_')) {
-      console.log('🧪 테스트 모드: 가상 결제 정보를 반환합니다.');
+    // 무료 결제 ID일 경우 가상 결제 정보 반환
+    if (paymentId.startsWith('test_payment_')) {
+      console.log('💌 무료 결제 ID 감지: 가상 결제 정보를 반환합니다.');
       
       return {
         paymentId: paymentId,
         status: 'PAID',
         orderName: '슈로의 프리미엄 편지',
         amount: {
-          total: 1000,
+          total: 0, // 무료이므로 0원
           currency: 'KRW'
         },
         paidAt: new Date().toISOString(),
         customer: {
-          fullName: '테스트 고객',
-          email: 'test@example.com',
+          fullName: '무료 사용자',
+          email: 'so.act.kr@gmail.com',
           phoneNumber: '010-0000-0000'
         },
-        txId: `test_tx_${Date.now()}`
+        txId: `free_tx_${Date.now()}`
       };
     }
 

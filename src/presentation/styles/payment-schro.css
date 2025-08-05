@@ -56,31 +56,31 @@
   line-height: 1.5;
 }
 
-/* 테스트 모드 안내 스타일 */
+/* 무료 서비스 안내 스타일 */
 .test-mode-notice {
   margin-top: 1.5rem;
   padding: 1rem;
-  background: linear-gradient(135deg, rgba(255, 193, 7, 0.1), rgba(255, 152, 0, 0.05));
-  border: 2px dashed rgba(255, 193, 7, 0.4);
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(139, 195, 74, 0.05));
+  border: 2px dashed rgba(76, 175, 80, 0.4);
   border-radius: 0.75rem;
   animation: gentle-pulse 3s ease-in-out infinite;
 }
 
 .test-mode-badge {
   display: inline-block;
-  background: linear-gradient(135deg, #ffc107, #ff9800);
+  background: linear-gradient(135deg, #4caf50, #8bc34a);
   color: #fff;
   padding: 0.25rem 0.75rem;
   border-radius: 1rem;
   font-size: 0.875rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
-  box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
 }
 
 .test-mode-text {
   font-size: 0.875rem;
-  color: #8b5a00;
+  color: #2e7d32;
   margin: 0;
   line-height: 1.4;
 }
@@ -88,11 +88,11 @@
 @keyframes gentle-pulse {
   0%, 100% {
     transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.2);
+    box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.2);
   }
   50% {
     transform: scale(1.01);
-    box-shadow: 0 0 0 8px rgba(255, 193, 7, 0);
+    box-shadow: 0 0 0 8px rgba(76, 175, 80, 0);
   }
 }
 
