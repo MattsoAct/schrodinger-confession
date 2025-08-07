@@ -17,35 +17,69 @@ export class PortOnePaymentServiceV2 {
   }
 
   async initialize() {
+    console.log('🔧 포트원 V2 초기화 시작...');
+    
+    // 환경 변수 확인
+    console.log('📋 환경 변수 확인:', {
+      apiSecret: this.apiSecret ? '설정됨' : '미설정',
+      storeId: this.storeId ? this.storeId : '미설정',
+      channelKey: this.channelKey ? this.channelKey : '미설정'
+    });
+    
     if (!this.apiSecret || !this.storeId || !this.channelKey) {
-      throw new Error('포트원 V2 설정이 올바르지 않습니다. 환경 변수를 확인해주세요.');
+      const missingVars = [];
+      if (!this.apiSecret) missingVars.push('REACT_APP_PORTONE_API_SECRET');
+      if (!this.storeId) missingVars.push('REACT_APP_PORTONE_STORE_ID');
+      if (!this.channelKey) missingVars.push('REACT_APP_PORTONE_CHANNEL_KEY');
+      
+      throw new Error(`포트원 V2 환경 변수가 누락되었습니다: ${missingVars.join(', ')}`);
     }
 
     // 포트원 V2 SDK를 CDN에서 로드
     if (!window.PortOne) {
+      console.log('📦 포트원 SDK 로딩 중...');
       await this.loadPortOneSDK();
+    } else {
+      console.log('✅ 포트원 SDK 이미 로드됨');
     }
     
+    console.log('🎉 포트원 V2 초기화 완료');
     return true;
   }
 
   async loadPortOneSDK() {
     return new Promise((resolve, reject) => {
       if (window.PortOne) {
+        console.log('✅ 포트원 SDK 이미 존재함');
         resolve();
         return;
       }
 
+      console.log('🔄 포트원 SDK 스크립트 태그 생성 중...');
       const script = document.createElement('script');
       script.src = 'https://cdn.portone.io/v2/browser-sdk.js';
+      
       script.onload = () => {
-        if (window.PortOne) {
-          resolve();
-        } else {
-          reject(new Error('포트원 SDK 로드 실패'));
-        }
+        console.log('📦 포트원 SDK 스크립트 로드 완료');
+        
+        // 잠시 대기 후 window.PortOne 확인
+        setTimeout(() => {
+          if (window.PortOne) {
+            console.log('✅ 포트원 V2 SDK 초기화 성공:', typeof window.PortOne);
+            resolve();
+          } else {
+            console.error('❌ 포트원 SDK 로드되었지만 window.PortOne이 없음');
+            reject(new Error('포트원 SDK가 제대로 로드되지 않았습니다.'));
+          }
+        }, 100);
       };
-      script.onerror = () => reject(new Error('포트원 SDK 스크립트 로드 실패'));
+      
+      script.onerror = (error) => {
+        console.error('❌ 포트원 SDK 스크립트 로드 실패:', error);
+        reject(new Error('포트원 SDK 네트워크 로드 실패'));
+      };
+      
+      console.log('🌐 포트원 SDK 스크립트 DOM에 추가 중...');
       document.head.appendChild(script);
     });
   }
@@ -102,29 +136,83 @@ export class PortOnePaymentServiceV2 {
       throw new Error('포트원 SDK가 로드되지 않았습니다.');
     }
 
+    console.log('포트원 결제 요청 시작:', {
+      storeId: this.storeId,
+      channelKey: this.channelKey,
+      paymentId: paymentData.orderId,
+      amount: paymentData.amount,
+      payMethod: paymentData.payMethod || 'CARD'
+    });
+
     try {
-      const response = await window.PortOne.requestPayment({
+      // 결제 방법에 따라 payMethod 설정
+      let payMethod = 'CARD';
+      if (paymentData.method === '계좌이체') payMethod = 'TRANSFER';
+      else if (paymentData.method === '카카오페이') payMethod = 'EASY_PAY';
+
+      // 이메일 형식 검증 (KG이니시스는 필수)
+      const validateEmail = (email) => {
+        if (!email || typeof email !== 'string' || email.trim() === '') {
+          throw new Error('결제를 위해서는 구매자 이메일이 필요합니다. 로그인 후 다시 시도해주세요.');
+        }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email.trim())) {
+          throw new Error('올바른 이메일 형식이 아닙니다.');
+        }
+        return email.trim();
+      };
+
+      // 전화번호 형식 검증
+      const validatePhone = (phone) => {
+        if (!phone || typeof phone !== 'string' || phone.trim() === '') {
+          return null;
+        }
+        return phone.trim();
+      };
+
+      const validEmail = validateEmail(paymentData.customerEmail);
+      const validPhone = validatePhone(paymentData.customerPhone);
+
+      // 테스트용 설정 (개발 중에만 사용)
+      const isTestMode = window.location.hostname === 'localhost';
+      
+      const paymentRequest = {
         storeId: this.storeId,
-        paymentId: paymentData.orderId,
+        paymentId: isTestMode ? 'DemoTest_1754531378956' : paymentData.orderId,
         orderName: paymentData.orderName || '슈로의 프리미엄 편지',
-        totalAmount: paymentData.amount,
+        totalAmount: isTestMode ? 1000 : paymentData.amount, // 테스트: 1000원 고정
         currency: 'KRW',
         channelKey: this.channelKey,
-        payMethod: 'CARD',
+        payMethod: payMethod,
         customer: {
           fullName: paymentData.customerName || '고객',
-          phoneNumber: paymentData.customerPhone,
-          email: paymentData.customerEmail,
+          email: validEmail, // KG이니시스 필수 필드
+          ...(validPhone && { phoneNumber: validPhone }),
         },
         customData: {
           orderId: paymentData.orderId,
-          letterType: 'premium'
+          letterType: 'premium',
+          ...(isTestMode && { testMode: true })
         },
         redirectUrl: `${window.location.origin}/payment/success`,
         noticeUrls: [
           `${window.location.origin}/api/portone/webhook`
         ],
-      });
+      };
+
+      if (isTestMode) {
+        console.log('🧪 테스트 모드 활성화 - KG이니시스 테스트 결제');
+        console.log('테스트 결제 정보:', {
+          paymentId: 'DemoTest_1754531378956',
+          amount: 1000,
+          mid: 'INIpayTest (포트원 콘솔에서 설정 필요)'
+        });
+      }
+
+      console.log('포트원 결제창 호출 중...', paymentRequest);
+      const response = await window.PortOne.requestPayment(paymentRequest);
+      
+      console.log('포트원 결제 응답:', response);
 
       if (response.code) {
         // 결제 실패

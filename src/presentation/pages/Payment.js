@@ -89,18 +89,51 @@ const Payment = () => {
       // 이미 생성된 orderId 사용하거나 새로 생성
       const orderId = paymentInfo.orderId || `schro_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
       
+      // 현재 로그인된 사용자 정보 가져오기 (KG이니시스 구매자 이메일 필수)
+      const { data: { user }, error: userError } = await supabase.auth.getUser();
+      
+      if (userError || !user?.email) {
+        setAlertModal({ 
+          isOpen: true, 
+          message: '결제를 위해서는 로그인이 필요합니다. 로그인 후 다시 시도해주세요.', 
+          type: 'error' 
+        });
+        setIsLoading(false);
+        return;
+      }
+
+      console.log('로그인된 사용자 이메일:', user.email);
+      
       // 세션스토리지에서 편지 데이터 가져와서 고객 정보 추출
       const letterDataString = sessionStorage.getItem('pendingLetter_' + paymentInfo.orderId);
-      let customerInfo = { name: '고객', email: '', phone: '' };
+      let customerInfo = { 
+        name: '고객', 
+        email: user.email, // 로그인된 사용자 이메일 사용 (필수)
+        phone: null 
+      };
+      
+      console.log('편지 데이터 확인:', letterDataString);
       
       if (letterDataString) {
         try {
           const letterData = JSON.parse(letterDataString);
+          console.log('파싱된 편지 데이터:', letterData);
+          
+          // 전화번호 형식 검증 (한국 전화번호)
+          const isValidPhone = (phone) => {
+            if (!phone || typeof phone !== 'string') return false;
+            const phoneRegex = /^01[0-9]-?[0-9]{3,4}-?[0-9]{4}$/;
+            return phoneRegex.test(phone.replace(/\s/g, ''));
+          };
+          
           customerInfo = {
             name: letterData.sender_name || '고객',
-            email: letterData.letter_type === 'email' ? letterData.receiver_contact : '',
-            phone: letterData.letter_type === 'sms' ? letterData.receiver_contact : '',
+            email: user.email, // 항상 로그인된 사용자 이메일 사용
+            phone: letterData.letter_type === 'sms' && isValidPhone(letterData.receiver_contact)
+              ? letterData.receiver_contact.replace(/\s/g, '') : null,
           };
+          
+          console.log('추출된 고객 정보:', customerInfo);
         } catch (error) {
           console.warn('편지 데이터 파싱 실패, 기본값 사용:', error);
         }
@@ -111,10 +144,12 @@ const Payment = () => {
         orderId: orderId,
         orderName: paymentInfo.orderName,
         customerName: customerInfo.name,
-        customerEmail: customerInfo.email,
+        customerEmail: customerInfo.email, // 로그인된 사용자 이메일 (필수)
         customerPhone: customerInfo.phone,
+        method: method, // 결제 방법 추가
       };
 
+      console.log('결제 요청 데이터:', paymentData);
       const result = await paymentService.requestPayment(paymentData);
       
       // 포트원은 성공 시 자동으로 successUrl로 리다이렉트됨

@@ -1,10 +1,13 @@
 import React from 'react';
 import MobileMockup from './MobileMockup';
+import ContentOnlyMockup from './ContentOnlyMockup';
 import './StepMockups.css';
 
-const Step5SuccessMockup = () => {
+const Step5SuccessMockup = ({ isCompact = false }) => {
+  const MockupWrapper = isCompact ? ContentOnlyMockup : MobileMockup;
+  
   return (
-    <MobileMockup>
+    <MockupWrapper>
       <div className="step5-success-mockup">
         {/* Main Content */}
         <div className="mockup-content">
@@ -23,9 +26,10 @@ const Step5SuccessMockup = () => {
 
           {/* Success Message */}
           <div className="success-message">
-            <div className="success-bubble">
-              <span className="bubble-text">딩고님께 편지 배달 완료! 💌✨</span>
-              <div className="bubble-tail"></div>
+            <div className="success-header">
+              <div className="success-icon">🎉</div>
+              <h2>마음이 통했어요!</h2>
+              <p className="success-subtitle">편지가 성공적으로 열렸어요! ✨</p>
             </div>
           </div>
 
@@ -34,25 +38,18 @@ const Step5SuccessMockup = () => {
             <div className="letter-header">
               <div className="letter-title">
                 <span className="title-highlight">슈로</span>
-                <span className="title-text">가 딩고에게 보낸 편지 🐱💕</span>
+                <span className="title-text">가 보낸 특별한 편지 🐱💕</span>
               </div>
             </div>
 
             <div className="letter-body">
               <div className="highlighted-message">
                 <p className="letter-text">
-                  딩고야! 안녕 🐱<br/>
-                  나야 슈로~ 오늘도 생각이 나서<br/>
-                  편지 써봤어!<br/>
-                  <br/>
-                  <span className="highlight-text">딩고랑 평생 츄르 나눠먹으면서<br/>행복하게 살고 싶어 💕</span><br/>
-                  <br/>
-                  츄르 없으면 참치캔도 좋고<br/>
-                  딩고가 좋아하는 간식이면 뭐든지!<br/>
-                  <br/>
-                  딩고야, 매일매일 행복하길 바라 🌟<br/>
-                  <br/>
-                  사랑하는 슈로가 ❤️
+                  딩고 안녕! 나 슈로야🐱
+                  <br></br>특별한 마음을 전하고
+                  <br></br>싶어서 편지 써봤어! 💕
+                  <br></br>매일매일 행복하길 바라~
+                  <br></br>사랑하는 슈로가 ❤️
                 </p>
               </div>
               
@@ -60,7 +57,14 @@ const Step5SuccessMockup = () => {
               
               <div className="sender-info">
                 <span className="sender-label">💌 보낸 사람: </span>
-                <span className="sender-name">슈로 (매일 츄르를 달라고 조르는 고양이)</span>
+                <span className="sender-name">슈로</span>
+                <div className="sender-hint">힌트: 매일 츄르를 달라고 조르는 고양이</div>
+              </div>
+              
+              <div className="success-footer">
+                <p className="success-note">
+                  🎊 축하해요! 소중한 마음이 성공적으로 전달되었어요!
+                </p>
               </div>
             </div>
           </div>
@@ -74,7 +78,7 @@ const Step5SuccessMockup = () => {
           </div>
         </div>
       </div>
-    </MobileMockup>
+    </MockupWrapper>
   );
 };
 
