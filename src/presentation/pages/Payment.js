@@ -152,8 +152,23 @@ const Payment = () => {
       console.log('결제 요청 데이터:', paymentData);
       const result = await paymentService.requestPayment(paymentData);
       
-      // 포트원은 성공 시 자동으로 successUrl로 리다이렉트됨
       console.log('포트원 결제 요청 성공:', result);
+      
+      // 무료 계정의 경우 가상 성공 응답을 받으므로 수동으로 success 페이지로 이동
+      if (result && result.status === 'PAID' && result.paymentId.startsWith('test_payment_')) {
+        console.log('💌 무료 계정 가상 결제 완료 - PaymentSuccess 페이지로 이동');
+        
+        const successParams = new URLSearchParams({
+          paymentId: result.paymentId,
+          orderId: orderId,
+          amount: paymentData.amount.toString()
+        });
+        
+        navigate(`/payment/success?${successParams.toString()}`);
+        return;
+      }
+      
+      // 일반 결제의 경우 포트원이 자동으로 redirectUrl로 리다이렉트
       
     } catch (error) {
       console.error('결제 요청 실패:', error);
