@@ -195,9 +195,7 @@ export class PortOnePaymentServiceV2 {
           ...(isTestMode && { testMode: true })
         },
         redirectUrl: `${window.location.origin}/payment/success`,
-        noticeUrls: [
-          `${window.location.origin}/api/portone/webhook`
-        ],
+        // 웹훅 URL 제거 - 클라이언트 사이드에서만 처리
       };
 
       if (isTestMode) {
