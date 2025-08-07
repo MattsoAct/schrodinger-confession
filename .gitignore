@@ -22,3 +22,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Webhook endpoint (keep local, don't deploy until activated)
+/api/portone/webhook.js

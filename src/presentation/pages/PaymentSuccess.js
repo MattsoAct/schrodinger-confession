@@ -25,38 +25,140 @@ const PaymentSuccess = () => {
       }
 
       try {
-        // 개발자 테스트 케이스 처리
-        if (paymentId.startsWith('dev_skip_')) {
-          console.log('🧪 개발자 결제 스킵 모드 - 검증 생략');
+        // 테스트 결제 ID 처리 (localhost 환경)
+        if (paymentId.startsWith('DemoTest_') || paymentId.startsWith('test_payment_')) {
+          console.log('🧪 테스트 결제 모드 - 편지 저장 및 알림 전송 진행');
           
-          // 개발자 테스트에서는 편지가 이미 Payment.js에서 저장되었으므로
-          // 추가 저장 없이 성공 처리만 진행
+          // 세션스토리지에서 편지 데이터 가져오기
           const letterDataString = sessionStorage.getItem('pendingLetter_' + orderId);
           let letterData = null;
           
           if (letterDataString) {
             try {
               letterData = JSON.parse(letterDataString);
-              // LetterDelivery 페이지에서 사용할 수 있도록 세션스토리지 유지
+              console.log('📧 편지 데이터 확인:', letterData);
             } catch (error) {
               console.error('편지 데이터 파싱 실패:', error);
+              setVerificationResult({ 
+                success: false, 
+                message: '편지 데이터를 읽을 수 없습니다.' 
+              });
+              setIsVerifying(false);
+              return;
             }
+          } else {
+            console.error('편지 데이터가 세션스토리지에 없습니다.');
+            setVerificationResult({ 
+              success: false, 
+              message: '편지 데이터를 찾을 수 없습니다.' 
+            });
+            setIsVerifying(false);
+            return;
           }
 
-          const successMessages = {
-            'email': '개발자 테스트: 편지 전송이 성공적으로 완료되었습니다! 받는 분에게 이메일 알림을 보냈어요 📧',
-            'sms': '개발자 테스트: 편지 전송이 성공적으로 완료되었습니다! 받는 분에게 SMS 알림을 보냈어요 📱'
-          };
+          // 편지 데이터를 Supabase에 저장
+          try {
+            console.log('💾 Supabase에 편지 저장 시도...');
+            
+            const dbLetterData = {
+              ...letterData,
+              letter_type: letterData.letter_type === 'email' || letterData.letter_type === 'sms' ? 'premium' : 'basic',
+              payment_id: paymentId // 테스트 결제 ID
+            };
 
-          // 개발자 테스트 성공 시 편지 배달 페이지로 리다이렉트
-          const deliveryParams = new URLSearchParams({
-            paymentId: paymentId,
-            orderId: orderId,
-            amount: amount.toString()
-          });
-          
-          navigate(`/letter-delivery?${deliveryParams.toString()}`);
-          return;
+            const { data: letterDbData, error: letterError } = await supabase
+              .from('confessions')
+              .insert([dbLetterData])
+              .select()
+              .single();
+
+            if (letterError) {
+              console.error('❌ 편지 저장 실패:', letterError);
+              setVerificationResult({ 
+                success: false, 
+                message: `편지 저장에 실패했습니다: ${letterError.message}` 
+              });
+              setIsVerifying(false);
+              return;
+            }
+
+            console.log('✅ 편지 저장 성공:', letterDbData);
+
+            // 알림 전송
+            try {
+              console.log('📨 알림 전송 시작, letter_type:', letterData.letter_type);
+              
+              if (letterData.letter_type === 'email') {
+                console.log('📧 이메일 알림 전송 시도...');
+                const emailResponse = await fetch(`${process.env.REACT_APP_SUPABASE_URL}/functions/v1/send-letter-notification`, {
+                  method: 'POST',
+                  headers: {
+                    'Authorization': `Bearer ${process.env.REACT_APP_SUPABASE_ANON_KEY}`,
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    receiver_email: letterData.receiver_contact,
+                    receiver_name: letterData.receiver_name,
+                    letter_id: letterDbData.id,
+                    hint: letterData.hint,
+                  }),
+                });
+
+                if (emailResponse.ok) {
+                  console.log('✅ 이메일 알림 전송 성공');
+                } else {
+                  console.error('❌ 이메일 알림 전송 실패:', await emailResponse.text());
+                }
+              } else if (letterData.letter_type === 'sms') {
+                console.log('📱 SMS 알림 전송 시도...');
+                const smsResponse = await fetch(`${process.env.REACT_APP_SUPABASE_URL}/functions/v1/send-sms-notification`, {
+                  method: 'POST',
+                  headers: {
+                    'Authorization': `Bearer ${process.env.REACT_APP_SUPABASE_ANON_KEY}`,
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    receiver_phone: letterData.receiver_contact,
+                    receiver_name: letterData.receiver_name,
+                    letter_id: letterDbData.id,
+                    hint: letterData.hint,
+                  }),
+                });
+
+                if (smsResponse.ok) {
+                  console.log('✅ SMS 알림 전송 성공');
+                } else {
+                  console.error('❌ SMS 알림 전송 실패:', await smsResponse.text());
+                }
+              }
+            } catch (notificationError) {
+              console.error('알림 전송 중 오류:', notificationError);
+            }
+
+            // 세션스토리지에서 편지 데이터 삭제
+            sessionStorage.removeItem('pendingLetter_' + orderId);
+            
+            console.log('🎉 테스트 결제 완료! 편지 ID:', letterDbData.id);
+
+            // 성공 페이지로 리다이렉트
+            const deliveryParams = new URLSearchParams({
+              paymentId: paymentId,
+              orderId: orderId,
+              amount: amount.toString()
+            });
+            
+            navigate(`/letter-delivery?${deliveryParams.toString()}`);
+            return;
+            
+          } catch (error) {
+            console.error('테스트 결제 처리 중 오류:', error);
+            setVerificationResult({ 
+              success: false, 
+              message: '결제 처리 중 오류가 발생했습니다.' 
+            });
+            setIsVerifying(false);
+            return;
+          }
         }
 
         // 포트원 V2 API를 통한 결제 검증 (실제 결제인 경우)
