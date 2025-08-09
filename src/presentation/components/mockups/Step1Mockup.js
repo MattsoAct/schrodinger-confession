@@ -5,13 +5,9 @@ import ContentOnlyMockup from './ContentOnlyMockup';
 import './StepMockups.css';
 
 const Step1Mockup = ({ 
-  senderName = '슈로', 
-  receiverName = '딩고', 
-  message = `딩고 안녕! 나 슈로야🐱
-특별한 마음을 전하고
-싶어서 편지 써봤어! 💕
-매일매일 행복하길 바라~
-사랑하는 슈로가 ❤️`, 
+  senderName = '딩고', 
+  receiverName = '나비', 
+  message = "나비야 안녕!\n나 딩고야🐱\n특별한 마음을 전하고 싶어서 편지 써봤어! 💕\n매일매일 행복하길 바라~\n사랑하는 딩고가 ❤️", 
   hint = '매일 츄르를 달라고 조르는 고양이',
   isPreview = false,
   isCompact = false

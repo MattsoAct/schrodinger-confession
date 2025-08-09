@@ -3,7 +3,7 @@ import MobileMockup from './MobileMockup';
 import ContentOnlyMockup from './ContentOnlyMockup';
 import './StepMockups.css';
 
-const Step3Mockup = ({ isCompact = false, receiverName = '딩고' }) => {
+const Step3Mockup = ({ isCompact = false, receiverName = '나비' }) => {
   const MockupWrapper = isCompact ? ContentOnlyMockup : MobileMockup;
   
   return (

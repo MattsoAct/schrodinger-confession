@@ -21,7 +21,7 @@ const Payment = () => {
   // URL 파라미터나 state에서 결제 정보 받기
   const paymentInfo = location.state?.paymentInfo || {
     amount: 5000,
-    orderName: 'SchRo 문자메시지 편지',
+    orderName: '슈로의 양자편지 - 문자메시지',
     customerName: '고객',
   };
 
@@ -183,7 +183,7 @@ const Payment = () => {
       <div className="payment-content">
         <div className="payment-header">
           <img src={schroLetterImage} alt="SchRo" className="payment-schro-img" />
-          <h1 className="payment-title">슈로의 비밀 편지</h1>
+          <h1 className="payment-title">슈로의 양자 편지</h1>
           <p className="payment-subtitle">특별한 편지로 마음을 전해보세요</p>
           
           {/* 무료 계정 안내 메시지 */}
@@ -219,17 +219,25 @@ const Payment = () => {
           </div>
           
           <div className="payment-features">
-            <div className="feature-item">
-              <span className="feature-icon">💌</span>
-              <span>개인화된 편지지 템플릿</span>
+            <div className="feature-item important-notice">
+              <span className="feature-icon">⚠️</span>
+              <span><strong>결제 전 확인사항</strong></span>
             </div>
             <div className="feature-item">
-              <span className="feature-icon">🎨</span>
-              <span>특별한 SchRo 디자인</span>
+              <span className="feature-icon">🎯</span>
+              <span>상대방이 이름을 정확히 맞춰야 편지 열람 가능</span>
             </div>
             <div className="feature-item">
-              <span className="feature-icon">🔒</span>
-              <span>보안 강화된 편지 전달</span>
+              <span className="feature-icon">🚨</span>
+              <span>이름 맞추기 기회는 단 한 번</span>
+            </div>
+            <div className="feature-item">
+              <span className="feature-icon">🔐</span>
+              <span>성공/실패 여부는 알 수 없음</span>
+            </div>
+            <div className="feature-item">
+              <span className="feature-icon">💳</span>
+              <span>결제 즉시 전송으로 환불 불가</span>
             </div>
             {isFreeEmail && (
               <div className="feature-item">

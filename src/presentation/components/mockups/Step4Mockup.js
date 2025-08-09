@@ -3,7 +3,7 @@ import MobileMockup from './MobileMockup';
 import ContentOnlyMockup from './ContentOnlyMockup';
 import './StepMockups.css';
 
-const Step4Mockup = ({ isCompact = false, hint = '매일 츄르를 달라고 조르는 고양이', receiverName = '딩고' }) => {
+const Step4Mockup = ({ isCompact = false, hint = '매일 츄르를 달라고 조르는 고양이', receiverName = '나비' }) => {
   const MockupWrapper = isCompact ? ContentOnlyMockup : MobileMockup;
   const [guessName, setGuessName] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);

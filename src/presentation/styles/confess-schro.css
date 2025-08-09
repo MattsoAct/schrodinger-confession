@@ -1092,8 +1092,8 @@
 
 .schro-premium-badge {
   position: absolute;
-  top: -5px;
-  right: -5px;
+  top: 8px;
+  right: 8px;
   background: linear-gradient(135deg, #FF6B6B, #FF8E53);
   color: white;
   font-size: 0.6rem;
@@ -1162,8 +1162,8 @@
   }
   
   .schro-premium-badge {
-    top: -3px;
-    right: -3px;
+    top: 6px;
+    right: 6px;
     font-size: 0.5rem;
     padding: 0.15rem 0.4rem;
   }
@@ -1176,5 +1176,59 @@
   
   .schro-letter-type-features {
     gap: 0.25rem;
+  }
+}
+
+/* ===== 버튼 크기 조정 ===== */
+
+/* 메인 CTA 버튼 강화 */
+.schro-confess-primary-cta {
+  font-size: var(--text-xl) !important;
+  padding: 1.2rem var(--space-xl) !important;
+  font-weight: 800 !important;
+  min-height: 70px;
+  box-shadow: 0 8px 25px rgba(230, 126, 34, 0.3) !important;
+  background: linear-gradient(135deg, var(--schro-orange), #E67E22) !important;
+  color: white !important;
+}
+
+.schro-confess-primary-cta:hover {
+  box-shadow: 0 12px 35px rgba(230, 126, 34, 0.4) !important;
+  transform: translateY(-4px) !important;
+  color: white !important;
+}
+
+/* 사용법 버튼 - 보조 버튼으로 축소 */
+.schro-confess-secondary-btn {
+  padding: 0.5rem var(--space-md) !important;
+  font-size: var(--text-base) !important;
+  font-weight: 600 !important;
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef) !important;
+  border: 2px solid #6c757d !important;
+  color: #495057 !important;
+  min-height: 40px;
+  opacity: 0.9;
+}
+
+.schro-confess-secondary-btn:hover:not(:disabled) {
+  background: #6c757d !important;
+  color: white !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3) !important;
+  opacity: 1;
+}
+
+/* 모바일에서 버튼 크기 조정 */
+@media (max-width: 768px) {
+  .schro-confess-primary-cta {
+    font-size: var(--text-lg) !important;
+    padding: 1rem var(--space-lg) !important;
+    min-height: 60px;
+  }
+  
+  .schro-confess-secondary-btn {
+    font-size: var(--text-sm) !important;
+    padding: 0.5rem var(--space-sm) !important;
+    min-height: 35px;
   }
 }

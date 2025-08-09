@@ -4,7 +4,7 @@ import MobileMockup from './MobileMockup';
 import ContentOnlyMockup from './ContentOnlyMockup';
 import './StepMockups.css';
 
-const Step2Mockup = ({ senderName = '슈로', receiverName = '딩고', isPreview = false, isCompact = false }) => {
+const Step2Mockup = ({ senderName = '딩고', receiverName = '나비', isPreview = false, isCompact = false }) => {
   const MockupWrapper = isCompact ? ContentOnlyMockup : MobileMockup;
   
   return (
@@ -29,7 +29,7 @@ const Step2Mockup = ({ senderName = '슈로', receiverName = '딩고', isPreview
           
           <div className="amount-section">
             <div className="amount-label">결제금액</div>
-            <div className="amount-value">10,000원</div>
+            <div className="amount-value">5,000원</div>
           </div>
         </div>
 
@@ -76,13 +76,13 @@ const Step2Mockup = ({ senderName = '슈로', receiverName = '딩고', isPreview
         {/* Security Notice */}
         <div className="security-notice">
           <FaShieldAlt className="security-icon" />
-          <span className="security-text">포트원 보안결제</span>
+          <span className="security-text">보안결제중</span>
         </div>
 
         {/* Payment Button */}
         <div className="payment-button-section">
           <button className="payment-submit-btn">
-            <span>10,000원 결제하기</span>
+            <span>5,000원 결제하기</span>
           </button>
         </div>
 

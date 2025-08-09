@@ -92,14 +92,14 @@ function Confess() {
     }
   };
 
-  // 사용법 미리보기 - 입력된 데이터로 How It Works 페이지 열기
+  // 사용법 미리보기 - 입력된 데이터나 기본값으로 How It Works 페이지 열기
   const handlePreviewFlow = () => {
-    // URL 파라미터로 데이터 전달
+    // 입력된 값이 있으면 사용하고, 없으면 기본값 사용
     const params = new URLSearchParams({
-      senderName: senderName.trim(),
-      receiverName: receiverName.trim(),
-      message: message.trim(),
-      hint: hint.trim(),
+      senderName: senderName.trim() || '슈로',
+      receiverName: receiverName.trim() || '딩고',
+      message: message.trim() || `딩고야! 안녕 🐱\n나야 슈로~ 오늘도 생각이 나서\n편지 써봤어!\n\n딩고랑 평생 츄르 나눠먹으면서\n행복하게 살고 싶어 💕\n\n사랑하는 슈로가 ❤️`,
+      hint: hint.trim() || '매일 츄르를 달라고 조르는 고양이',
       preview: 'true'
     });
     
@@ -133,7 +133,7 @@ function Confess() {
     };
     
     const typeNameMap = {
-      'sms': 'SchRo 문자메시지 편지'
+      'sms': '슈로의 양자편지(SMS)'
     };
 
     const paymentInfo = {
@@ -286,11 +286,6 @@ function Confess() {
                   <h4>문자메시지</h4>
                   <span className="schro-letter-type-price">5,000원</span>
                 </div>
-                <div className="schro-letter-type-features">
-                  <span className="feature">📱 SMS 전송</span>
-                  <span className="feature">⚡ 즉시 배달</span>
-                  <span className="feature">📞 직접 전송</span>
-                </div>
               </div>
 
               <div className={`schro-letter-type-option premium disabled`}
@@ -306,11 +301,6 @@ function Confess() {
                   <div className="schro-letter-type-icon">💬</div>
                   <h4>카카오톡</h4>
                   <span className="schro-letter-type-price" style={{background: '#999', color: 'white'}}>준비중</span>
-                </div>
-                <div className="schro-letter-type-features">
-                  <span className="feature">💬 카톡 전송</span>
-                  <span className="feature">🎨 특별 디자인</span>
-                  <span className="feature">💝 SchRo 스티커</span>
                 </div>
                 <div className="schro-premium-badge">준비중</div>
               </div>
@@ -343,19 +333,18 @@ function Confess() {
           </div>
 
           <div className="schro-confess-button-group">
-            <button type="submit" className="schro-confess-submit">
+            <button type="submit" className="schro-confess-submit schro-confess-primary-cta">
               <span style={{ fontSize: 'var(--text-xl)' }}>👀</span>
-              편지 미리보기
+              발송 전 편지 미리보기
             </button>
             
             <button 
               type="button" 
-              className="schro-confess-preview-flow"
+              className="schro-confess-preview-flow schro-confess-secondary-btn"
               onClick={handlePreviewFlow}
-              disabled={!senderName || !receiverName || !message || !hint}
             >
-              <span style={{ fontSize: 'var(--text-xl)' }}>📖</span>
-              사용법 미리보기
+              <span style={{ fontSize: '0.9rem' }}>📖</span>
+              사용법 보기
             </button>
           </div>
         </form>
@@ -497,19 +486,19 @@ function Confess() {
           <div className="schro-confess-safety-card">
             <span className="schro-confess-safety-icon">🛡️</span>
             <div className="schro-confess-safety-text">
-              편지는 안전하게 암호화되어 전달돼요
+              편지는 암호화되어 안전해요
             </div>
           </div>
           <div className="schro-confess-safety-card">
             <span className="schro-confess-safety-icon">💝</span>
             <div className="schro-confess-safety-text">
-              보낸 사람을 맞힌 사람만 편지를 읽을 수 있어요
+              마음이 통해야만 편지가 전달돼요
             </div>
           </div>
           <div className="schro-confess-safety-card">
             <span className="schro-confess-safety-icon">🔐</span>
             <div className="schro-confess-safety-text">
-              한 번만 시도할 수 있으니 신중하게 생각해보세요
+              당신의 이름은 슈로만 알고있어요
             </div>
           </div>
         </div>
