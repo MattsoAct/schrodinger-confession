@@ -180,7 +180,7 @@ export class PortOnePaymentServiceV2 {
         storeId: this.storeId,
         paymentId: isTestMode ? 'DemoTest_1754531378956' : paymentData.orderId,
         orderName: paymentData.orderName || '슈로의 프리미엄 편지',
-        totalAmount: isTestMode ? 1000 : paymentData.amount, // 테스트: 1000원 고정
+        totalAmount: paymentData.amount, // 실제 결제 금액 사용
         currency: 'KRW',
         channelKey: this.channelKey,
         payMethod: payMethod,
