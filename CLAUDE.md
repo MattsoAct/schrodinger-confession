@@ -6,32 +6,33 @@
 - SchRo 우체부 고양이 캐릭터를 활용한 따뜻하고 친근한 브랜딩
 - **배포 URL**: https://schrodinger-confession.vercel.app
 
-## 🚀 최신 완료 작업 (2025-01-29) - 포트원 V2 API 마이그레이션
+## 🚀 최신 완료 작업 (2025-08-07) - 포트원 V2 + KG이니시스 결제 시스템 완성
 
-### ✅ 토스페이먼츠 → 포트원 V2 완전 마이그레이션 완료
+### ✅ 포트원 V2 + KG이니시스 실연동 완료
 
-1. **포트원 V2 API 결제 서비스 구현**
-   - `PortOnePaymentServiceV2.js` 새로 생성
-   - CDN 방식으로 포트원 SDK 동적 로딩 구현
-   - REST API를 통한 결제 상태 확인 로직
-   - 고객 정보 자동 추출 및 전달
+1. **포트원 V2 + KG이니시스 결제 연동 완성**
+   - `PortOnePaymentServiceV2.js` 완전 구현
+   - KG이니시스 실연동 채널키 적용: `channel-key-4685bfe7-3e86-4d99-ba56-d58ec6a87ddc`
+   - 결제 방법별 처리: 카드(CARD), 계좌이체(TRANSFER), 카카오페이(EASY_PAY)
+   - 구매자 이메일 필수 검증 (KG이니시스 요구사항)
+   - 테스트 모드 자동 활성화 (localhost 환경)
 
-2. **환경 변수 포트원 V2로 전환**
+2. **환경 변수 완전 설정**
    - `REACT_APP_PORTONE_API_SECRET`: QiCrz1DRaTMHN5kN37tphXINaHUSVI7lIf7uOdJenDKYeZCkqkGEJmaNQFtwiPyMPZb7ZMZ1IDNedjm9
    - `REACT_APP_PORTONE_STORE_ID`: store-196b8657-5a55-42d0-8e6b-e0d6f9679b04 ✅
-   - `REACT_APP_PORTONE_CHANNEL_KEY`: **대기 중** (PG사 계약 후 발급)
+   - `REACT_APP_PORTONE_CHANNEL_KEY`: channel-key-4685bfe7-3e86-4d99-ba56-d58ec6a87ddc ✅
 
-3. **결제 페이지 포트원 V2 대응**
-   - `Payment.js` 업데이트: 포트원 V2 서비스 사용
-   - `PaymentSuccess.js` 완전 재작성: payment_key → payment_id 변경
-   - 포트원 V2 결제 상태값 대응 (pending, paid, failed 등)
+3. **결제 플로우 완전 구현**
+   - `Payment.js`: 로그인 사용자 이메일 자동 추출, 무료 계정 처리
+   - `PaymentSuccess.js`: 테스트/실결제 모두 처리, 편지 저장 및 알림 전송
+   - 웹훅 URL 제거로 포트원 모니터링 알림 해결
+   - 개발자 스킵 버튼 제거 및 코드 정리
 
-4. **데이터베이스 스키마 포트원 V2 대응**
-   - `payments_portone_v2_update.sql` 생성 ✅
+4. **데이터베이스 스키마 업데이트 완료**
+   - `payments_portone_v2_update.sql` Supabase에서 실행 완료 ✅
    - payment_key → payment_id 컬럼명 변경
    - store_id, channel_key, customer_* 필드 추가
-   - payment_webhooks 테이블 추가 (웹훅 처리용)
-   - 포트원 V2 결제 상태 제약조건 업데이트
+   - 포트원 V2 상태값 제약조건 업데이트
 
 ### ✅ UX 디자인 개선 완료
 1. **헤더 가시성 문제 해결**
@@ -96,33 +97,31 @@ src/assets/
 ## 기술 스택
 - **Frontend**: React 18, React Router v6
 - **Backend**: Supabase (PostgreSQL)
-- **Payment**: 토스페이먼츠 (@tosspayments/payment-sdk)
+- **Payment**: 포트원 V2 + KG이니시스 (실연동)
+- **Notifications**: CoolSMS (SMS), Resend (Email)
 - **Icons**: React Icons (FA, HI)
 - **Styling**: Pure CSS with CSS Variables
+- **Deployment**: Vercel
 
-## 🔄 현재 진행 상황 및 다음 단계
+## 🔄 현재 상황 및 다음 단계
 
-### ⏳ 현재 대기 중인 작업 (PG사 계약 필요)
+### 🎉 결제 시스템 완전 준비 완료
 
-**포트원 콘솔에서 진행해야 할 작업:**
-1. **PG사 테스트 연동 추가**
-   - 포트원 콘솔 → 결제연동 → 연동 관리
-   - "새 연동 추가" → PG사: "포트원 테스트" 선택
-   - 결제수단: 카드, 계좌이체, 카카오페이 활성화
-   - **테스트 채널키 발급** 대기
+**현재 작동 환경:**
+- **로컬 환경** (localhost:3000): KG이니시스 테스트 결제 (DemoTest_1754531378956, 1000원)
+- **프로덕션 환경** (vercel.app): KG이니시스 실연동 (실제 카드 결제)
+- **무료 계정 시스템**: `so.act.kr@gmail.com` 로그인 시 무료 편지 전송
 
-2. **채널키 받은 후 즉시 진행할 작업**
-   - `.env` 파일의 `REACT_APP_PORTONE_CHANNEL_KEY` 업데이트
-   - Vercel 환경 변수 3개 모두 업데이트
-   - Supabase SQL Editor에서 `payments_portone_v2_update.sql` 실행
-   - 로컬 환경에서 포트원 V2 결제 플로우 테스트
+**웹훅 시스템:**
+- 현재 비활성화 (클라이언트 사이드 처리)
+- `/api/portone/webhook.js` 파일 보관 중 (필요 시 활성화 가능)
 
-### 🚀 채널키 발급 후 즉시 진행 가능한 작업들
+### 🚀 다음 개발 우선순위
 
-1. **포트원 V2 결제 시스템 완성**
-   - 포트원 테스트 환경에서 결제 플로우 전체 테스트
-   - 결제 성공/실패/취소 시나리오 검증
-   - 개발자 결제 스킵 모드와 실제 결제 모드 비교 테스트
+1. **무료 계정 결제 처리 버그 수정** (진행 중)
+   - `so.act.kr@gmail.com` 계정 결제 시 무한 로딩 문제 해결
+   - PaymentSuccess 페이지 리다이렉트 로직 수정
+   - 테스트 및 실결제 편지 저장/알림 전송 확인
 
 2. **결제 장벽 낮추기 위한 UX 개선**
    - **편지 미리보기/체험 페이지 구현 필요** 📝
@@ -214,54 +213,54 @@ REACT_APP_TOSS_SECRET_KEY=test_sk_ma60RZblrqDe8rjvMRvmN5P1nO7v   # 테스트용
 4. 결제 완료 후 편지 자동 저장
 5. 결제 정보 데이터베이스 저장
 
-## 🏁 포트원 V2 마이그레이션 체크리스트
+## 🏁 포트원 V2 + KG이니시스 연동 체크리스트
 
-### ✅ 완료된 작업
-- [x] 포트원 V2 결제 서비스 클래스 구현
-- [x] 환경 변수를 포트원 V2로 전환 (Store ID 실제 값으로 업데이트)
-- [x] Payment.js, PaymentSuccess.js 포트원 V2 대응
-- [x] 데이터베이스 스키마 업데이트 SQL 준비
-- [x] Supabase Authentication URL을 프로덕션으로 변경
-- [x] 포트원 설정 가이드 문서 작성 (PORTONE_SETUP.md)
+### ✅ 완료된 작업 (2025-08-07)
+- [x] 포트원 V2 결제 서비스 완전 구현
+- [x] KG이니시스 실연동 채널키 발급 및 적용
+- [x] 환경 변수 3개 모두 설정 완료
+- [x] Payment.js, PaymentSuccess.js 포트원 V2 완전 대응
+- [x] 데이터베이스 스키마 Supabase에서 실행 완료
+- [x] 구매자 이메일 필수 검증 (KG이니시스 요구사항)
+- [x] 테스트/실결제 환경 자동 분기 처리
+- [x] 웹훅 URL 제거로 포트원 모니터링 알림 해결
+- [x] 개발자 스킵 기능 제거 및 코드 정리
+- [x] 무료 계정 시스템 유지 (so.act.kr@gmail.com)
 
-### ⏳ 대기 중인 작업 (PG 계약 필요)
-- [ ] 포트원 콘솔에서 테스트 PG 연동 추가
-- [ ] 테스트 채널키 발급 받기
-- [ ] 채널키로 환경 변수 업데이트
-- [ ] Vercel 환경 변수 업데이트 (3개 모두)
-- [ ] Supabase에서 payments_portone_v2_update.sql 실행
-- [ ] 포트원 V2 결제 플로우 테스트
-- [ ] 웹훅 URL 설정 (선택사항)
+### ⚠️ 현재 이슈 (해결 중)
+- [ ] 무료 계정 결제 처리 시 리다이렉트 문제 (수정사항 배포 중)
+- [ ] 테스트 결제 후 편지 저장/알림 전송 검증 필요
 
-### 📋 다음 접속 시 진행할 작업 순서
+### 📋 다음 접속 시 즉시 확인할 사항
 
-1. **포트원 콘솔 채널키 확인**
-   ```
-   포트원 콘솔 → 결제연동 → 채널 관리
-   → 테스트 채널키 복사
-   ```
-
-2. **환경 변수 업데이트**
+1. **무료 계정 결제 처리 확인**
    ```bash
-   # .env 파일 업데이트
-   REACT_APP_PORTONE_CHANNEL_KEY=[실제_채널키]
-   
-   # Vercel Dashboard에서도 동일하게 업데이트
+   # Vercel 배포 완료 후 테스트
+   1. https://schrodinger-confession.vercel.app 접속
+   2. so.act.kr@gmail.com 로그인
+   3. 편지 작성 → 결제 → PaymentSuccess 이동 확인
+   4. Supabase confessions 테이블에 편지 저장 확인
+   5. SMS/이메일 알림 전송 확인
    ```
 
-3. **Supabase SQL 실행**
-   ```sql
-   -- Supabase SQL Editor에서 실행
-   -- C:\Users\swjeo\schrodinger-confession\database\payments_portone_v2_update.sql
-   ```
-
-4. **결제 시스템 테스트**
+2. **일반 결제 시스템 테스트**
    ```bash
-   npm start
-   # localhost:3000에서 프리미엄 편지 결제 테스트
+   # 실제 결제 테스트 (소액)
+   1. 다른 이메일로 로그인
+   2. 편지 작성 → KG이니시스 결제창
+   3. 실제 카드로 소액 결제 테스트
+   4. PaymentSuccess → 편지 저장/알림 확인
+   ```
+
+3. **웹훅 시스템 활성화 (필요 시)**
+   ```bash
+   # .gitignore에서 웹훅 파일 제거
+   # PortOnePaymentServiceV2.js에서 noticeUrls 주석 해제
+   # 포트원 콘솔에서 웹훅 URL 등록
    ```
 
 ---
-*최종 업데이트: 2025-01-29*  
-*포트원 V2 마이그레이션 95% 완료 - 채널키 발급만 남음*  
-*다음 작업 시 이 문서의 "다음 접속 시 진행할 작업 순서" 섹션 참고*
+*최종 업데이트: 2025-08-07*  
+*포트원 V2 + KG이니시스 실연동 완료 - 결제 시스템 95% 완성*  
+*현재 무료 계정 리다이렉트 문제 수정사항 배포 중*  
+*다음 접속 시 "다음 접속 시 즉시 확인할 사항" 섹션 참고하여 테스트 진행*

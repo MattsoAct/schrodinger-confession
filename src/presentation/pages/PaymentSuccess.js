@@ -63,7 +63,7 @@ const PaymentSuccess = () => {
             const dbLetterData = {
               ...letterData,
               letter_type: letterData.letter_type === 'email' || letterData.letter_type === 'sms' ? 'premium' : 'basic',
-              payment_id: paymentId // 테스트 결제 ID
+              payment_id: null // 무료 계정은 payment_id 없음
             };
 
             const { data: letterDbData, error: letterError } = await supabase
