@@ -20,8 +20,8 @@ const Payment = () => {
   
   // URL 파라미터나 state에서 결제 정보 받기
   const paymentInfo = location.state?.paymentInfo || {
-    amount: 1000,
-    orderName: '슈로의 비밀 편지',
+    amount: 5000,
+    orderName: 'SchRo 문자메시지 편지',
     customerName: '고객',
   };
 
