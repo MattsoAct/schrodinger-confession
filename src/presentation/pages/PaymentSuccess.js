@@ -148,6 +148,13 @@ const PaymentSuccess = () => {
             });
             
             navigate(`/letter-delivery?${deliveryParams.toString()}`);
+            
+            // 테스트 결제 완료 - 실제 결제 로직으로 넘어가지 않도록 함
+            setVerificationResult({ 
+              success: true, 
+              message: '테스트 결제가 완료되었습니다!' 
+            });
+            setIsVerifying(false);
             return;
             
           } catch (error) {
