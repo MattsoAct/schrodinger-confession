@@ -16,6 +16,18 @@ function HowItWorks() {
   const location = useLocation();
   const [showSuccess, setShowSuccess] = useState(true);
   const [currentResult, setCurrentResult] = useState('success'); // 'success' | 'fail'
+  const [isMobile, setIsMobile] = useState(false);
+
+  // 모바일 감지
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   
   // URL 파라미터에서 데이터 추출
   const [previewData, setPreviewData] = useState({
@@ -70,7 +82,7 @@ function HowItWorks() {
         message={`${previewData.receiverName}야 안녕!\n나 ${previewData.senderName}야🐱\n특별한 마음을 전하고 싶어서 편지 써봤어! 💕\n매일매일 행복하길 바라~\n사랑하는 ${previewData.senderName}가 ❤️`}
         hint={previewData.hint}
         isPreview={previewData.isPreview}
-        isCompact={false}
+        isCompact={isMobile}
       />,
       icon: <FaEnvelope />,
       content: "💝 특별한 사람에게 전하고 싶은 마음을 편지로 써보세요.",
@@ -86,7 +98,7 @@ function HowItWorks() {
         senderName={previewData.senderName}
         receiverName={previewData.receiverName}
         isPreview={previewData.isPreview}
-        isCompact={false}
+        isCompact={isMobile}
       />,
       icon: <FaCreditCard />,
       content: "💳 슈로가 당신의 편지를 카카오톡이나 문자메시지로 배달해드려요.",
@@ -96,9 +108,9 @@ function HowItWorks() {
     {
       id: 3,
       title: "3단계: 문자 알림 받기",
-      description: "받는 사람에게 신비한 편지가 도착했어요!",
+      description: "받는 사람에게 편지가 전달됐어요!",
       duration: "즉시 전송",
-      component: <Step3Mockup isCompact={false} receiverName={previewData.receiverName} />,
+      component: <Step3Mockup isCompact={isMobile} receiverName={previewData.receiverName} />,
       icon: <HiOutlineDeviceMobile />,
       content: "📱 '슈로의 양자편지'에서 편지를 확인할 수 있는 링크가 전송됩니다.",
       persona: "receiver",
@@ -109,7 +121,7 @@ function HowItWorks() {
       title: "4단계: 편지 확인하기",
       description: "누가 보냈는지 맞춰야 열 수 있어요",
       duration: "약 2분 소요",
-      component: <Step4Mockup isCompact={false} hint={previewData.hint} receiverName={previewData.receiverName} />,
+      component: <Step4Mockup isCompact={isMobile} hint={previewData.hint} receiverName={previewData.receiverName} />,
       icon: <FaSearch />,
       content: "🔍 기회는 단 한 번! 보낸 사람의 이름을 맞춰야 편지를 열 수 있어요!",
       persona: "receiver", 
@@ -120,7 +132,7 @@ function HowItWorks() {
       title: "5단계: 실패한 경우",
       description: "이름을 틀려서 편지가 사라졌어요",
       duration: "즉시 결과",
-      component: <Step5Mockup isCompact={false} receiverName={previewData.receiverName} wrongGuess="다비" />,
+      component: <Step5Mockup isCompact={isMobile} receiverName={previewData.receiverName} wrongGuess="다비" />,
       icon: <FaSadTear />,
       content: "😢 아쉬워요... 이름을 틀렸어요. 편지는 영원히 사라지고 비밀은 지켜집니다.",
       persona: "result-fail",
@@ -131,9 +143,9 @@ function HowItWorks() {
       title: "6단계: 성공한 경우",
       description: "정답을 맞춰서 편지가 열렸어요!",
       duration: "즉시 결과",
-      component: <Step5SuccessMockup isCompact={false} />,
+      component: <Step5SuccessMockup isCompact={isMobile} />,
       icon: <FaHeart />,
-      content: "🎉 축하해요! 마음이 통해서 편지가 열렸어요!✨💕",
+      content: "🎉 축하해요!💕 마음이 통해서 편지가 열렸어요!✨",
       persona: "result-success",
       personaLabel: "🎉 성공 결과"
     }
@@ -163,12 +175,12 @@ function HowItWorks() {
         {/* Service Flow Introduction */}
         <div className="service-flow-intro">
           <h2 className="flow-title">📬 양자편지 서비스 이용 방법</h2>
-          <p className="flow-description">
-총 6단계로 이루어진 간단한 과정입니다. 
-            <p></p>처음 2단계는 <span className="highlight-sender">편지를 보내는 분</span>이, 
-3-4단계는 <span className="highlight-receiver">편지를 받는 분</span>이, 
-            <p></p>5-6단계는 결과에 따른 다른 경험을 하게 됩니다.
-          </p>
+          <div className="flow-description">
+            <p>총 6단계로 이루어진 간단한 과정입니다.</p>
+            <p>처음 2단계는 <span className="highlight-sender">편지를 보내는 분</span>이, 
+3-4단계는 <span className="highlight-receiver">편지를 받는 분</span>이,</p>
+            <p>5-6단계는 결과에 따른 다른 경험을 하게 됩니다.</p>
+          </div>
         </div>
 
         {/* Main Content - 2열 컴팩트 레이아웃 */}

@@ -41,10 +41,13 @@ const Step3Mockup = ({ isCompact = false, receiverName = '나비' }) => {
         <div className="messages-content">
           <div className="message-bubble received">
             <div className="message-text">
-              안녕하세요 딩고님🐱<br /><br />
-              🔐보낸 사람의 이름을 맞혀야만 열리는 안전하고 특별한 양자편지가 배달왔어요!🔐<br /><br />
-              📮편지 확인하기: <span className="message-link">www.schros.com/check/123</span><br />
-              ⚠️기회는 단 한 번! 신중하게 시도하세요!
+              안녕하세요 {receiverName}님🐱
+              
+              🔐 특별한 양자편지가 도착했어요! 보낸 사람의 이름을 맞혀야 열 수 있어요.
+              
+              📮 편지확인: <span className="message-link">www.schros.com/check/123</span>
+              
+              ⚠️ 기회는 단 한 번입니다!
             </div>
             <div className="message-time">오후 2:30</div>
           </div>

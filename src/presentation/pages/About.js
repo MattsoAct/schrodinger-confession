@@ -22,13 +22,10 @@ function About() {
             <div className="schro-about-quantum-box"></div>
           </div>
           <h1 className="schro-about-hero-title">
-            안녕하세요!<br/>
-            슈뢰딩거의 고양이 <span className="schro-highlight">슈로</span>입니다
+            안녕하세요! 슈뢰딩거의 고양이 <span className="schro-highlight">슈로</span>입니다
           </h1>
           <p className="schro-about-hero-subtitle">
-            양자역학의 마법으로<br/>
-            <strong>"보냈지만 안 보낸" 상태의</strong><br/>
-            신비한 편지를 배달해요
+            양자역학의 마법으로 <strong>"보냈지만 안 보낸" 상태의</strong> 신비한 편지를 배달해요
           </p>
           <div className="schro-about-quantum-state">
             <div className="schro-about-state-indicator">
@@ -46,8 +43,7 @@ function About() {
               슈뢰딩거의 편지 원리
             </h2>
             <p className="schro-about-principle-subtitle">
-              양자역학의 "관측 효과"를 편지에 적용했어요<br/>
-              관측(이름 맞히기) 전까지는 편지가 보내진 것도 아니고 안 보내진 것도 아닌 상태예요
+              양자역학의 "관측 효과"를 편지에 적용했어요. 관측(이름 맞히기) 전까지는 편지가 보내진 것도 아니고 안 보내진 것도 아닌 상태예요
             </p>
           </div>
           
@@ -56,13 +52,13 @@ function About() {
               <div className="schro-about-state-before">
                 <div className="schro-about-state-icon">📦❓</div>
                 <h4>중첩 상태</h4>
-                <p><strong>"보냄"과 "안 보냄"</strong>이<br/>동시에 존재하는 양자 상태</p>
+                <p><strong>"보냄"과 "안 보냄"</strong>이 동시에 존재하는 양자 상태</p>
               </div>
               <div className="schro-about-state-arrow">→</div>
               <div className="schro-about-state-after">
                 <div className="schro-about-state-icon">💌✨</div>
-                <h4>관측 (이름 맞히기)</h4>
-                <p>정확한 관측으로<br/><strong>편지가 실체화</strong>되어요</p>
+                <h4>관측(이름 맞히기)</h4>
+                <p>정확한 관측으로 <strong>편지가 실체화</strong>되어요</p>
               </div>
             </div>
           </div>
@@ -84,15 +80,13 @@ function About() {
                 <div className="schro-about-benefit-point">
                   <span className="schro-about-point-icon">⚛️</span>
                   <div>
-                    <strong>양자 중첩 상태의 안전함</strong><br/>
-                    관측 전까지는 상대방이 누가 보냈는지 절대 모름
+                    <strong>양자 중첩 상태의 안전함</strong> - 관측 전까지는 상대방이 누가 보냈는지 절대 모름
                   </div>
                 </div>
                 <div className="schro-about-benefit-point">
                   <span className="schro-about-point-icon">🎭</span>
                   <div>
-                    <strong>슈뢰딩거의 익명성</strong><br/>
-                    마음이 통하지 않으면 영원히 양자 상태로 남아있어요
+                    <strong>슈뢰딩거의 익명성</strong> - 마음이 통하지 않으면 영원히 양자 상태로 남아있어요
                   </div>
                 </div>
                 <div className="schro-about-benefit-highlight">
@@ -110,15 +104,13 @@ function About() {
                 <div className="schro-about-benefit-point">
                   <span className="schro-about-point-icon">🕊️</span>
                   <div>
-                    <strong>비폭력적 고백 시스템</strong><br/>
-                    관측에 실패하면 자연스럽게 양자 상태로 돌아가요
+                    <strong>비폭력적 고백 시스템</strong> - 관측에 실패하면 자연스럽게 양자 상태로 돌아가요
                   </div>
                 </div>
                 <div className="schro-about-benefit-point">
                   <span className="schro-about-point-icon">🔬</span>
                   <div>
-                    <strong>양자 관측의 재미</strong><br/>
-                    누가 보냈을지 추리하는 과학적 게임
+                    <strong>양자 관측의 재미</strong> - 누가 보냈을지 추리하는 과학적 게임
                   </div>
                 </div>
                 <div className="schro-about-benefit-highlight">
@@ -185,8 +177,7 @@ function About() {
               <div className="schro-about-step-icon">⚛️</div>
               <h3 className="schro-about-step-title">양자 편지 생성</h3>
               <p className="schro-about-step-description">
-                마음을 담아 편지를 작성하면<br/>
-                중첩 상태의 양자 편지가 생성돼요<br/>
+                마음을 담아 편지를 작성하면 중첩 상태의 양자 편지가 생성돼요<br/>
                 <small>💫 이 순간부터 "보냄+안보냄" 상태</small>
               </p>
             </div>
@@ -195,8 +186,7 @@ function About() {
               <div className="schro-about-step-icon">📦</div>
               <h3 className="schro-about-step-title">슈뢰딩거의 상자 배달</h3>
               <p className="schro-about-step-description">
-                슈로가 양자 편지를 상자에 담아<br/>
-                상대방에게 배달해요<br/>
+                슈로가 양자 편지를 상자에 담아 상대방에게 배달해요<br/>
                 <small>🔮 열어보기 전까지는 비밀</small>
               </p>
             </div>
@@ -205,8 +195,7 @@ function About() {
               <div className="schro-about-step-icon">🔬</div>
               <h3 className="schro-about-step-title">관측 시도</h3>
               <p className="schro-about-step-description">
-                받는 사람이 보낸 사람의<br/>
-                이름을 입력해서 관측해요<br/>
+                받는 사람이 보낸 사람의 이름을 입력해서 관측해요<br/>
                 <small>⚡ 바로 이것이 "관측 행위"</small>
               </p>
             </div>
@@ -215,8 +204,7 @@ function About() {
               <div className="schro-about-step-icon">💌</div>
               <h3 className="schro-about-step-title">파동함수 붕괴</h3>
               <p className="schro-about-step-description">
-                정확한 관측으로 편지가 실체화되거나<br/>
-                틀리면 영원히 양자 상태로 남아요<br/>
+                정확한 관측으로 편지가 실체화되거나, 틀리면 영원히 양자 상태로 남아요<br/>
                 <small>✨ 마음이 통해야만 관측 가능</small>
               </p>
             </div>
@@ -230,12 +218,10 @@ function About() {
             <div className="schro-about-cta-quantum-effect"></div>
           </div>
           <h2 className="schro-about-cta-title">
-            이제 양자역학의 힘으로<br/>
-            안전하게 마음을 전해보세요
+            이제 양자역학의 힘으로 안전하게 마음을 전해보세요
           </h2>
           <p className="schro-about-cta-description">
-            슈뢰딩거의 고양이 슈로가<br/>
-            당신의 마음을 <strong>양자 상태</strong>로 배달해드려요
+            슈뢰딩거의 고양이 슈로가 당신의 마음을 <strong>양자 상태</strong>로 배달해드려요
           </p>
           <div className="schro-about-cta-benefits-quick">
             <span>⚛️ 양자 중첩 상태 보장</span>

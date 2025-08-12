@@ -272,6 +272,7 @@
   font-weight: 700;
   color: var(--schro-orange);
   margin-bottom: var(--space-md);
+  word-break: keep-all;
 }
 
 .schro-about-quantum-states p {
@@ -361,6 +362,7 @@
   font-weight: 700;
   color: var(--schro-orange);
   margin: 0;
+  word-break: keep-all;
 }
 
 .schro-about-benefit-content {
