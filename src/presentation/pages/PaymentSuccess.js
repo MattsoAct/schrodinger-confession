@@ -132,7 +132,14 @@ const PaymentSuccess = () => {
                 }
               } else if (letterData.letter_type === 'sms') {
                 console.log('📱 SMS 알림 전송 시도...');
-                const smsResponse = await fetch(`${process.env.REACT_APP_SUPABASE_URL}/functions/v1/send-sms-notification`, {
+                
+                // URL 검증 및 디버깅
+                const supabaseUrl = process.env.REACT_APP_SUPABASE_URL || 'https://orhvdkwmottijmviurdn.supabase.co';
+                const functionUrl = `${supabaseUrl}/functions/v1/send-sms-notification`;
+                console.log('📱 SMS Function URL:', functionUrl);
+                console.log('📱 Supabase URL from env:', process.env.REACT_APP_SUPABASE_URL);
+                
+                const smsResponse = await fetch(functionUrl, {
                   method: 'POST',
                   headers: {
                     'Authorization': `Bearer ${process.env.REACT_APP_SUPABASE_ANON_KEY}`,
