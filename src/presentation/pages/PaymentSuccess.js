@@ -5,6 +5,9 @@ import { supabase } from '../../infrastructure/storage/supabase.js';
 import { PortOnePaymentServiceV2 } from '../../infrastructure/api/PortOnePaymentServiceV2.js';
 import '../styles/payment-result-schro.css';
 
+// 전역 중복 실행 방지
+const processedPayments = new Set();
+
 const PaymentSuccess = () => {
   const [searchParams] = useSearchParams();
   const [isVerifying, setIsVerifying] = useState(true);
@@ -19,9 +22,21 @@ const PaymentSuccess = () => {
 
   useEffect(() => {
     const verifyPayment = async () => {
-      // 중복 실행 방지
-      if (hasProcessed) {
-        console.log('⚠️ 이미 처리된 결제입니다. 중복 실행을 방지합니다.');
+      // 더 강력한 중복 실행 방지 (sessionStorage + 전역)
+      const paymentKey = `${paymentId}_${orderId}`;
+      const sessionKey = `processed_payment_${paymentKey}`;
+      
+      // sessionStorage 확인
+      if (sessionStorage.getItem(sessionKey)) {
+        console.log('⚠️ SessionStorage: 이미 처리된 결제입니다.', paymentKey);
+        setIsVerifying(false);
+        return;
+      }
+      
+      // 전역 Set 확인
+      if (processedPayments.has(paymentKey)) {
+        console.log('⚠️ Global Set: 이미 처리된 결제입니다.', paymentKey);
+        setIsVerifying(false);
         return;
       }
 
@@ -31,9 +46,10 @@ const PaymentSuccess = () => {
         return;
       }
 
-      // 처리 시작 시 플래그 설정
-      setHasProcessed(true);
-      console.log('🔄 결제 처리 시작:', { paymentId, orderId, amount });
+      // 처리 시작 시 즉시 플래그 설정 (두 곳 모두)
+      sessionStorage.setItem(sessionKey, 'true');
+      processedPayments.add(paymentKey);
+      console.log('🔄 결제 처리 시작 (중복 방지 플래그 설정):', { paymentId, orderId, amount });
 
       try {
         // 테스트 결제 ID 처리 (localhost 환경)
