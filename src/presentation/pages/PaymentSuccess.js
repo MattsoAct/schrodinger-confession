@@ -139,28 +139,42 @@ const PaymentSuccess = () => {
                 console.log('📱 SMS Function URL:', functionUrl);
                 console.log('📱 Supabase URL from env:', process.env.REACT_APP_SUPABASE_URL);
                 
-                const smsResponse = await fetch(functionUrl, {
-                  method: 'POST',
-                  headers: {
-                    'Authorization': `Bearer ${process.env.REACT_APP_SUPABASE_ANON_KEY}`,
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({
-                    receiver_phone: letterData.receiver_contact,
-                    receiver_name: letterData.receiver_name,
-                    letter_id: letterDbData.id,
-                    hint: letterData.hint,
-                  }),
-                });
+                // 요청 데이터 검증
+                const smsRequestData = {
+                  receiver_phone: letterData.receiver_contact,
+                  receiver_name: letterData.receiver_name,
+                  letter_id: letterDbData.id,
+                  hint: letterData.hint,
+                };
+                
+                console.log('📱 SMS 요청 데이터:', smsRequestData);
+                console.log('📱 Authorization key length:', process.env.REACT_APP_SUPABASE_ANON_KEY?.length);
+                
+                try {
+                  const smsRequestBody = JSON.stringify(smsRequestData);
+                  console.log('📱 SMS 요청 body:', smsRequestBody);
+                  
+                  const smsResponse = await fetch(functionUrl, {
+                    method: 'POST',
+                    headers: {
+                      'Authorization': `Bearer ${process.env.REACT_APP_SUPABASE_ANON_KEY}`,
+                      'Content-Type': 'application/json',
+                    },
+                    body: smsRequestBody,
+                  });
+                  
+                  const smsResponseText = await smsResponse.text();
+                  console.log('📱 SMS API 응답 상태:', smsResponse.status);
+                  console.log('📱 SMS API 응답 내용:', smsResponseText);
 
-                const smsResponseText = await smsResponse.text();
-                console.log('📱 SMS API 응답 상태:', smsResponse.status);
-                console.log('📱 SMS API 응답 내용:', smsResponseText);
-
-                if (smsResponse.ok) {
-                  console.log('✅ SMS 알림 전송 성공');
-                } else {
-                  console.error('❌ SMS 알림 전송 실패:', smsResponseText);
+                  if (smsResponse.ok) {
+                    console.log('✅ SMS 알림 전송 성공');
+                  } else {
+                    console.error('❌ SMS 알림 전송 실패:', smsResponseText);
+                  }
+                } catch (fetchError) {
+                  console.error('📱 SMS fetch 요청 자체 오류:', fetchError);
+                  throw fetchError;
                 }
               }
             } catch (notificationError) {
