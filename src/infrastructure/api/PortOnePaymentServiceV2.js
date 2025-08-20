@@ -2,9 +2,10 @@ import { Payment } from '../../domain/entities/Payment.js';
 
 export class PortOnePaymentServiceV2 {
   constructor() {
-    this.apiSecret = process.env.REACT_APP_PORTONE_API_SECRET;
-    this.storeId = process.env.REACT_APP_PORTONE_STORE_ID;
-    this.channelKey = process.env.REACT_APP_PORTONE_CHANNEL_KEY;
+    // 환경 변수 우선, 없으면 하드코딩 값 사용
+    this.apiSecret = process.env.REACT_APP_PORTONE_API_SECRET || 'QiCrz1DRaTMHN5kN37tphXINaHUSVI7lIf7uOdJenDKYeZCkqkGEJmaNQFtwiPyMPZb7ZMZ1IDNedjm9';
+    this.storeId = process.env.REACT_APP_PORTONE_STORE_ID || 'store-196b8657-5a55-42d0-8e6b-e0d6f9679b04';
+    this.channelKey = process.env.REACT_APP_PORTONE_CHANNEL_KEY || 'channel-key-4685bfe7-3e86-4d99-ba56-d58ec6a87ddc';
     this.apiUrl = 'https://api.portone.io/v2';
     // 무료 사용 가능한 특별 이메일 주소
     this.freeEmails = ['so.act.kr@gmail.com'];
