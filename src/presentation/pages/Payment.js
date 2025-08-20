@@ -298,10 +298,14 @@ const Payment = () => {
 
               <button 
                 className="payment-method-btn kakao-btn"
-                onClick={() => handlePayment('카카오페이')}
-                disabled={isLoading}
+                disabled={true}
+                style={{
+                  opacity: 0.6,
+                  cursor: 'not-allowed',
+                  background: '#ccc'
+                }}
               >
-                카카오페이로 결제하기
+                카카오페이로 결제하기 (준비중)
               </button>
             </>
           )}
