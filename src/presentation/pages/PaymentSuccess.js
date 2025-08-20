@@ -87,6 +87,12 @@ const PaymentSuccess = () => {
             // 알림 전송
             try {
               console.log('📨 알림 전송 시작, letter_type:', letterData.letter_type);
+              console.log('📨 편지 데이터:', { 
+                receiver_contact: letterData.receiver_contact,
+                receiver_name: letterData.receiver_name,
+                letter_id: letterDbData.id,
+                hint: letterData.hint 
+              });
               
               if (letterData.letter_type === 'email') {
                 console.log('📧 이메일 알림 전송 시도...');
@@ -104,10 +110,14 @@ const PaymentSuccess = () => {
                   }),
                 });
 
+                const emailResponseText = await emailResponse.text();
+                console.log('📧 이메일 API 응답 상태:', emailResponse.status);
+                console.log('📧 이메일 API 응답 내용:', emailResponseText);
+
                 if (emailResponse.ok) {
                   console.log('✅ 이메일 알림 전송 성공');
                 } else {
-                  console.error('❌ 이메일 알림 전송 실패:', await emailResponse.text());
+                  console.error('❌ 이메일 알림 전송 실패:', emailResponseText);
                 }
               } else if (letterData.letter_type === 'sms') {
                 console.log('📱 SMS 알림 전송 시도...');
@@ -125,10 +135,14 @@ const PaymentSuccess = () => {
                   }),
                 });
 
+                const smsResponseText = await smsResponse.text();
+                console.log('📱 SMS API 응답 상태:', smsResponse.status);
+                console.log('📱 SMS API 응답 내용:', smsResponseText);
+
                 if (smsResponse.ok) {
                   console.log('✅ SMS 알림 전송 성공');
                 } else {
-                  console.error('❌ SMS 알림 전송 실패:', await smsResponse.text());
+                  console.error('❌ SMS 알림 전송 실패:', smsResponseText);
                 }
               }
             } catch (notificationError) {
