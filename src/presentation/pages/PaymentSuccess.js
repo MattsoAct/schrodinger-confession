@@ -9,6 +9,7 @@ const PaymentSuccess = () => {
   const [searchParams] = useSearchParams();
   const [isVerifying, setIsVerifying] = useState(true);
   const [verificationResult, setVerificationResult] = useState(null);
+  const [hasProcessed, setHasProcessed] = useState(false); // 중복 실행 방지 플래그
   const navigate = useNavigate();
 
   // 포트원과 토스페이먼츠 모두 지원
@@ -18,11 +19,21 @@ const PaymentSuccess = () => {
 
   useEffect(() => {
     const verifyPayment = async () => {
+      // 중복 실행 방지
+      if (hasProcessed) {
+        console.log('⚠️ 이미 처리된 결제입니다. 중복 실행을 방지합니다.');
+        return;
+      }
+
       if (!paymentId || !orderId || !amount) {
         setVerificationResult({ success: false, message: '결제 정보가 올바르지 않습니다.' });
         setIsVerifying(false);
         return;
       }
+
+      // 처리 시작 시 플래그 설정
+      setHasProcessed(true);
+      console.log('🔄 결제 처리 시작:', { paymentId, orderId, amount });
 
       try {
         // 테스트 결제 ID 처리 (localhost 환경)
@@ -341,7 +352,7 @@ const PaymentSuccess = () => {
     };
 
     verifyPayment();
-  }, [paymentId, orderId, amount]);
+  }, [paymentId, orderId, amount, hasProcessed]); // hasProcessed 의존성 추가
 
   if (isVerifying) {
     return (
