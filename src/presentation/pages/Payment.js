@@ -75,7 +75,11 @@ const Payment = () => {
         console.log('포트원 초기화 성공');
       } catch (error) {
         console.error('포트원 초기화 실패:', error);
-        setAlertModal({ isOpen: true, message: '결제 시스템 초기화에 실패했습니다.', type: 'error' });
+        setAlertModal({ 
+          isOpen: true, 
+          message: `결제 시스템 초기화에 실패했습니다.\n${error.message}`, 
+          type: 'error' 
+        });
       }
     };
 
