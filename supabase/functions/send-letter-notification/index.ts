@@ -51,7 +51,7 @@ Deno.serve(async (req) => {
     }
 
     // 편지 확인 링크 생성
-    const letterUrl = `${req.headers.get('origin') || 'https://schro-confession.vercel.app'}/check/${letter_id}`
+    const letterUrl = `${req.headers.get('origin') || 'https://schrodinger-confession.vercel.app'}/check/${letter_id}`
 
     // 이메일 HTML 템플릿
     const emailHtml = `

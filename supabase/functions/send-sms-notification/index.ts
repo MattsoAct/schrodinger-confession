@@ -53,7 +53,7 @@ Deno.serve(async (req) => {
     }
 
     // 편지 확인 링크 생성
-    const letterUrl = `${req.headers.get('origin') || 'https://schro-confession.vercel.app'}/check/${letter_id}`
+    const letterUrl = `${req.headers.get('origin') || 'https://schrodinger-confession.vercel.app'}/check/${letter_id}`
 
     // SMS 메시지 템플릿
     const smsMessage = `📮 ${receiver_name}님, SchRo에서 신비한 편지가 도착했어요!

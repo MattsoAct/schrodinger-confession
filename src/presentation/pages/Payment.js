@@ -89,22 +89,22 @@ const Payment = () => {
   const handlePayment = async (method = '카드') => {
     setIsLoading(true);
 
+    // 현재 로그인된 사용자 정보 먼저 가져오기 (KG이니시스 구매자 이메일 필수)
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
+    
+    if (userError || !user?.email) {
+      setAlertModal({ 
+        isOpen: true, 
+        message: '결제를 위해서는 로그인이 필요합니다. 로그인 후 다시 시도해주세요.', 
+        type: 'error' 
+      });
+      setIsLoading(false);
+      return;
+    }
+
     try {
       // 이미 생성된 orderId 사용하거나 새로 생성
       const orderId = paymentInfo.orderId || `schro_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-      
-      // 현재 로그인된 사용자 정보 가져오기 (KG이니시스 구매자 이메일 필수)
-      const { data: { user }, error: userError } = await supabase.auth.getUser();
-      
-      if (userError || !user?.email) {
-        setAlertModal({ 
-          isOpen: true, 
-          message: '결제를 위해서는 로그인이 필요합니다. 로그인 후 다시 시도해주세요.', 
-          type: 'error' 
-        });
-        setIsLoading(false);
-        return;
-      }
 
       console.log('로그인된 사용자 이메일:', user.email);
       
@@ -157,6 +157,13 @@ const Payment = () => {
       const result = await paymentService.requestPayment(paymentData);
       
       console.log('포트원 결제 요청 성공:', result);
+      console.log('결제 결과 분석:', {
+        hasResult: !!result,
+        status: result?.status,
+        paymentId: result?.paymentId,
+        isTestPayment: result?.paymentId?.startsWith('test_payment_'),
+        isFreeEmail: paymentService.isFreeEmail(customerInfo.email)
+      });
       
       // 무료 계정의 경우 가상 성공 응답을 받으므로 수동으로 success 페이지로 이동
       if (result && result.status === 'PAID' && result.paymentId.startsWith('test_payment_')) {
@@ -168,14 +175,36 @@ const Payment = () => {
           amount: paymentData.amount.toString()
         });
         
+        // 로딩 상태 해제 후 페이지 이동
+        setIsLoading(false);
         navigate(`/payment/success?${successParams.toString()}`);
         return;
       }
       
-      // 일반 결제의 경우 포트원이 자동으로 redirectUrl로 리다이렉트
+      // 일반 결제의 경우 포트원이 자동으로 redirectUrl로 리다이렉트하지만,
+      // 경우에 따라 수동으로 처리해야 할 수도 있음
+      console.log('📋 일반 결제 처리 완료, 포트원 자동 리다이렉트 대기 중...');
+      
+      // 포트원 리다이렉트가 5초 이내에 발생하지 않으면 수동 처리
+      setTimeout(() => {
+        if (result && (result.status === 'PAID' || result.code === null)) {
+          console.log('⏰ 포트원 자동 리다이렉트가 지연됨, 수동 리다이렉트 실행');
+          const successParams = new URLSearchParams({
+            paymentId: result.paymentId || result.transactionId,
+            orderId: orderId,
+            amount: paymentData.amount.toString()
+          });
+          window.location.href = `/payment/success?${successParams.toString()}`;
+        }
+      }, 5000);
       
     } catch (error) {
       console.error('결제 요청 실패:', error);
+      console.log('실패한 결제 정보:', {
+        method,
+        userEmail: user?.email,
+        isFreeEmail: paymentService.isFreeEmail(user?.email)
+      });
       setAlertModal({ isOpen: true, message: `결제 요청에 실패했습니다: ${error.message || error}`, type: 'error' });
       setIsLoading(false);
     }

@@ -12,7 +12,7 @@ const PaymentSuccess = () => {
   const [searchParams] = useSearchParams();
   const [isVerifying, setIsVerifying] = useState(true);
   const [verificationResult, setVerificationResult] = useState(null);
-  const [hasProcessed, setHasProcessed] = useState(false); // 중복 실행 방지 플래그
+  const [hasProcessed] = useState(false); // 중복 실행 방지 플래그
   const navigate = useNavigate();
 
   // 포트원과 토스페이먼츠 모두 지원
@@ -231,12 +231,39 @@ const PaymentSuccess = () => {
         }
 
         // 포트원 V2 API를 통한 결제 검증 (실제 결제인 경우)
+        console.log('🏦 실제 결제 검증 시작:', { paymentId, orderId });
         const paymentService = new PortOnePaymentServiceV2();
         const paymentInfo = await paymentService.getPaymentInfo(paymentId);
+        
+        console.log('🏦 포트원 결제 정보:', paymentInfo);
 
         if (paymentInfo.status === 'PAID') {
-          // 세션스토리지에서 편지 데이터 가져오기
-          const letterDataString = sessionStorage.getItem('pendingLetter_' + orderId);
+          console.log('✅ 결제 상태 PAID 확인됨');
+          
+          // 세션스토리지에서 편지 데이터 가져오기 (모든 가능한 키 확인)
+          const possibleKeys = [
+            'pendingLetter_' + orderId,
+            'pendingLetter_' + paymentId,
+            'pendingLetter'
+          ];
+          
+          let letterDataString = null;
+          let usedKey = null;
+          
+          for (const key of possibleKeys) {
+            letterDataString = sessionStorage.getItem(key);
+            if (letterDataString) {
+              usedKey = key;
+              console.log('📦 편지 데이터 발견:', { key, dataLength: letterDataString.length });
+              break;
+            }
+          }
+          
+          if (!letterDataString) {
+            console.warn('⚠️ 세션스토리지에서 편지 데이터를 찾을 수 없음');
+            console.log('📋 사용 가능한 세션스토리지 키들:', Object.keys(sessionStorage));
+          }
+          
           let letterData = null;
           
           if (letterDataString) {
@@ -345,12 +372,18 @@ const PaymentSuccess = () => {
 
                 // 세션스토리지에서 편지 데이터 삭제
                 sessionStorage.removeItem('pendingLetter_' + orderId);
-                const successMessages = {
-                  'email': '결제와 편지 전송이 성공적으로 완료되었습니다! 받는 분에게 이메일 알림을 보냈어요 📧',
-                  'sms': '결제와 편지 전송이 성공적으로 완료되었습니다! 받는 분에게 SMS 알림을 보냈어요 📱',
-                  'kakao': '결제와 편지 전송이 성공적으로 완료되었습니다! 받는 분에게 카카오톡 알림을 보냈어요 💬'
-                };
 
+                // 세션스토리지에서 사용한 키의 편지 데이터 삭제
+                if (usedKey) {
+                  sessionStorage.removeItem(usedKey);
+                  console.log('🗑️ 편지 데이터 삭제됨:', usedKey);
+                }
+                
+                setVerificationResult({ 
+                  success: true, 
+                  message: '결제와 편지 전송이 성공적으로 완료되었습니다!' 
+                });
+                
                 // 실제 결제 성공 시에도 편지 배달 페이지로 리다이렉트
                 const deliveryParams = new URLSearchParams({
                   paymentId: paymentId,
@@ -361,6 +394,12 @@ const PaymentSuccess = () => {
                 navigate(`/letter-delivery?${deliveryParams.toString()}`);
               }
             } else {
+              console.log('📬 편지 데이터가 없음, 결제만 처리됨');
+              setVerificationResult({ 
+                success: true, 
+                message: '결제가 완료되었습니다!' 
+              });
+              
               // 편지 데이터가 없어도 편지 배달 페이지로 리다이렉트
               const deliveryParams = new URLSearchParams({
                 paymentId: paymentId,
@@ -389,7 +428,7 @@ const PaymentSuccess = () => {
     };
 
     verifyPayment();
-  }, [paymentId, orderId, amount, hasProcessed]); // hasProcessed 의존성 추가
+  }, [paymentId, orderId, amount, hasProcessed, navigate]); // navigate 의존성 추가
 
   if (isVerifying) {
     return (
